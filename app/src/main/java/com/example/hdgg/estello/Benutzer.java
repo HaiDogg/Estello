@@ -12,11 +12,12 @@ public Benutzer(){
 
     }
 
-    public BenutzerErstellen(String benutzer_name, String benutzer_email, String benutzer_pw){
+    public Benutzer(String benutzer_name, String benutzer_email, String benutzer_pw){
 
         this.benutzer_name = benutzer_name;
         this.benutzer_email = benutzer_email;
         this.benutzer_pw = benutzer_pw;
+        benutzer_id ++;
 
     }
 
