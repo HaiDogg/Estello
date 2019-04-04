@@ -45,11 +45,13 @@
 
     <TextView
         android:id="@+id/textView"
-        android:layout_width="54dp"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_alignParentStart="true"
         android:layout_alignParentTop="true"
-        android:layout_marginStart="78dp"
-        android:layout_marginTop="84dp"
-        android:text="Slikk-O" />
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="110dp"
+        android:text="Slikk-O"
+        android:textAppearance="@style/TextAppearance.AppCompat"
+        android:visibility="visible"
+        tools:text="Slikk-O" />
 </RelativeLayout>
