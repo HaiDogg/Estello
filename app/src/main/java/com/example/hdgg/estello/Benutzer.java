@@ -35,6 +35,14 @@ public Benutzer(){
     }
 
     public String getBenutzer_email(){
-        return benutzer_email;
+
+    return benutzer_email;
+    }
+
+
+    @Override
+    public String toString(){
+    String out = benutzer_name + " " + benutzer_email +" "+ benutzer_id;
+    return out;
     }
 }
