@@ -23,7 +23,9 @@ public class MainActivity extends AppCompatActivity {
 
 
         Benutzer estelle = new Benutzer
-                ("Estelle", "estelle@gmail.com", "haido123");
+                ("Estelle"
+                        //, "estelle@gmail.com"
+                        , "haido123");
         Log.d(LOG_TAG, "Inhalt der Testmemo: " + estelle.toString());
 
         dataSource = new BenutzerDataSource(this);

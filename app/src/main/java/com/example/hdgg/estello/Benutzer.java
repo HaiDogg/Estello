@@ -3,7 +3,7 @@ package com.example.hdgg.estello;
 public class Benutzer {
     private static int benutzer_id = 0;
     private String benutzer_name;
-    private String benutzer_email;
+    //private String benutzer_email;
     private String benutzer_pw;
 
 
@@ -12,10 +12,12 @@ public Benutzer(){
 
     }
 
-    public Benutzer(String benutzer_name, String benutzer_email, String benutzer_pw){
+    public Benutzer(String benutzer_name,
+                    //String benutzer_email,
+                    String benutzer_pw){
 
         this.benutzer_name = benutzer_name;
-        this.benutzer_email = benutzer_email;
+        //this.benutzer_email = benutzer_email;
         this.benutzer_pw = benutzer_pw;
         benutzer_id ++;
 
@@ -34,15 +36,17 @@ public Benutzer(){
         return benutzer_name;
     }
 
-    public String getBenutzer_email(){
+    /**public String getBenutzer_email(){
 
     return benutzer_email;
     }
-
+**/
 
     @Override
     public String toString(){
-    String out = benutzer_name + " " + benutzer_email +" "+ benutzer_id;
+    String out = benutzer_name + " "
+            //+ benutzer_email
+            +" "+ benutzer_id;
     return out;
     }
 }
