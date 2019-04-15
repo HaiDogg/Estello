@@ -11,7 +11,7 @@ public class Angebote extends AppCompatActivity {
 
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_kategorien);
+        setContentView(R.layout.activity_angebote);
     }
 
     public void meinProfil(final View view){
