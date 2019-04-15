@@ -60,16 +60,23 @@ public class Angebote extends AppCompatActivity {
                 //...
 
         }else{
-            //Toast: du kannst es dir nicht leisten, möchtest du a) in dein profil aufladen, b) zu angeboten zurück
-            if(1==2){
-            Intent i = new Intent(Angebote.this, Profil.class);
-            startActivity(i);
-        }else{
-
-                Intent i = new Intent(Angebote.this,Angebote.class);
-                startActivity(i);
-            }
-
+            String[] answers = {"Guthaben Aufladen", "Zurück zu den Angeboten"};
+            AlertDialog.Builder builder = new AlertDialog.Builder(this);
+            builder.setTitle("Bist du dir sicher");
+            builder.setItems(answers, new DialogInterface.OnClickListener() {
+                @Override
+                public void onClick(DialogInterface dialog, int which) {
+                    // the user clicked on colors[which]
+                    if (which ==0){
+                        Intent i = new Intent(Angebote.this, Profil.class);
+                        startActivity(i);
+                    }else{
+                        Intent i = new Intent(Angebote.this,Angebote.class);
+                        startActivity(i);
+                    }
+                }
+            });
+            builder.show();
     }
 }
 }

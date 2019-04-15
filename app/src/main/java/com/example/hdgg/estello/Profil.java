@@ -18,7 +18,6 @@ public class Profil extends AppCompatActivity {
     }
 
     public void updateListe(String name_von_textview){
-        //TODO Füge zur Text View hinzu
         TextView alt = (TextView) findViewById(R.id.kaufe_id);
         CharSequence old = alt.getText();
         TextView textView = (TextView) findViewById(R.id.kaufe_id);
