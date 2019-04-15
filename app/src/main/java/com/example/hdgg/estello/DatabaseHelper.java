@@ -17,6 +17,8 @@ public class DatabaseHelper extends SQLiteOpenHelper{
     public static final String TABLE_NAME = "user";
     public static final String COLUMN_NAME = "user_name";
     public static final String COLUMN_PASS = "user_pass";
+    //Guthaben
+    public static final String COLUMN_GUTHABEN = "guthaben";
 
 
     //Objekt Datenbank
@@ -36,7 +38,7 @@ public class DatabaseHelper extends SQLiteOpenHelper{
 
         this.db = db;
         final String SQL_CREATE_USER = "CREATE TABLE " + TABLE_NAME + "(" + COLUMN_NAME + "TEXT PRIMARY KEY, "
-                + COLUMN_PASS + "TEXT)";
+                + COLUMN_PASS + "TEXT," + COLUMN_GUTHABEN+ "FLOAT DEFAULT 10.00)";
 
     }
 
