@@ -4,6 +4,7 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
+import android.widget.TextView;
 
 public class Profil extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
@@ -18,5 +19,10 @@ public class Profil extends AppCompatActivity {
 
     public void updateListe(String name_von_textview){
         //TODO Füge zur Text View hinzu
+        TextView alt = (TextView) findViewById(R.id.kaufe_id);
+        CharSequence old = alt.getText();
+        TextView textView = (TextView) findViewById(R.id.kaufe_id);
+        textView.setText(old + name_von_textview);
     }
 }
+
