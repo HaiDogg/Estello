@@ -1,6 +1,14 @@
 package com.example.hdgg.estello;
 
-public class Kategorie {
+import android.os.Bundle;
+import android.support.v7.app.AppCompatActivity;
+
+public class Kategorie extends AppCompatActivity {
 
     // hier kommen die Kategorien rein
+
+    protected void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        setContentView(R.layout.activity_kategorien);
+    }
 }

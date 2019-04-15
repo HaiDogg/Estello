@@ -68,12 +68,12 @@ public class ErstelleAccount extends AppCompatActivity {
         String userPasswortNeu= userPasswort.getText().toString();
 
         //Objekt Kontakt erstellen
-        Kontakt k = new Kontakt();
-        k.setUsername(userNameNeu);
-        k.setUpasswort(userPasswortNeu);
+        Benutzer b = new Benutzer();
+        b.setBenutzer_name(userNameNeu);
+        b.setBenutzer_pw(userPasswortNeu);
 
         //Methode soll eingefügt werden
-        helper.fuegKontaktEin( k );
+        helper.fuegKontaktEin( b );
 
         //Intent zur Kategorien-Activity
         Intent i =new Intent(ErstelleAccount.this, Kategorie.class);
