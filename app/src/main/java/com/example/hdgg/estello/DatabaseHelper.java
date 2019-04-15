@@ -21,10 +21,7 @@ public class DatabaseHelper extends SQLiteOpenHelper{
     public static final String COLUMN_PASS = "user_pass";
     public static final String COLUMN_GUTHABEN = "guthaben";
 
-    public static final String TABLE_ANGEBOTE= "angebote";
-    public static final String COLUMN_NAME = "user_name";
-    public static final String COLUMN_PASS = "user_pass";
-    public static final String COLUMN_GUTHABEN = "guthaben";
+
 
 
 
@@ -43,11 +40,12 @@ public class DatabaseHelper extends SQLiteOpenHelper{
 
     @Override
     public void onCreate(SQLiteDatabase db) {
-
-        this.db = db;
         final String SQL_CREATE_USER = "CREATE TABLE " + TABLE_NAME + "(" + COLUMN_NAME + "TEXT PRIMARY KEY, "
                 + COLUMN_PASS + "TEXT," + COLUMN_GUTHABEN+ "FLOAT DEFAULT 10.00)";
 
+        db.execSQL(SQL_CREATE_USER);
+
+        this.db = db;
     }
 
     public void fuegKontaktEin(Benutzer b ){
@@ -75,6 +73,7 @@ public class DatabaseHelper extends SQLiteOpenHelper{
             }while(cursor.moveToNext());
         }return b;
     }
+
 
     @Override
     public void onUpgrade(SQLiteDatabase db, int oldVersion, int newVersion) {
