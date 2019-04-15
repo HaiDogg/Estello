@@ -15,4 +15,8 @@ public class Profil extends AppCompatActivity {
         Intent i = new Intent(Profil.this, Angebote.class);
         startActivity(i);
     }
+
+    public void updateListe(String name_von_textview){
+        //TODO Füge zur Text View hinzu
+    }
 }

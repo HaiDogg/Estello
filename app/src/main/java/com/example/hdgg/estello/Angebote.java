@@ -17,6 +17,8 @@ import android.widget.Toast;
 public class Angebote extends AppCompatActivity {
 
     DatabaseHelper helper = new DatabaseHelper(this);
+    Profil profil = new Profil();
+    private String benutzer_name; // TODO den müssen wir holen
 
 
     // hier kommen die Kategorien rein
@@ -49,9 +51,11 @@ public class Angebote extends AppCompatActivity {
                 double neues_guthaben = 0;
                 neues_guthaben = guthaben - preis;
                 guthaben = neues_guthaben;
-                //TODO Datenbank updaten
-                helper.updateDB(guthaben);
+                //Datenbank updaten
+                helper.updateDB(guthaben, benutzer_name);
                 //TODO Im Profil wird der Kauf in die Liste hinzugefügt
+                String name_von_textview ="Netflix";
+                profil.updateListe(name_von_textview);
 
                 //...
 
