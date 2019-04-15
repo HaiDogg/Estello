@@ -10,6 +10,12 @@ public class Profil extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_profil);
+
+        // setze Profil Name
+        TextView name = (TextView) findViewById(R.id.name_text);
+        String name_neu = name.getText().toString();
+        TextView tv = (TextView) findViewById(R.id.profil_name_id);
+        tv.setText(name_neu);
     }
 
     public void gehZuAngebote(final View view){
