@@ -12,6 +12,7 @@ import android.os.Bundle;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.Button;
+import android.widget.TextView;
 import android.widget.Toast;
 
 public class Angebote extends AppCompatActivity {
@@ -33,9 +34,8 @@ public class Angebote extends AppCompatActivity {
         startActivity(i);
     }
 
-    public void kaufMich(double preis, double guthaben){
+    public void kaufMich(final double guthaben, final double preis){
         if (guthaben >= preis){
-            //TODO Toast bist du dir sicher?
             String[] answers = {"yes", "no"};
             AlertDialog.Builder builder = new AlertDialog.Builder(this);
             builder.setTitle("Bist du dir sicher");
@@ -43,22 +43,16 @@ public class Angebote extends AppCompatActivity {
                 @Override
                 public void onClick(DialogInterface dialog, int which) {
                     // the user clicked on colors[which]
+                    if(which == 0){
+                        machWasZuTunIst(guthaben,preis);
+                    }
+                    else{
+                        Intent i = new Intent(Angebote.this,Angebote.class);
+                        startActivity(i);
+                    }
                 }
             });
             builder.show();
-            //wenn ja
-                //guthaben wird geupdated
-                double neues_guthaben = 0;
-                neues_guthaben = guthaben - preis;
-                guthaben = neues_guthaben;
-                //Datenbank updaten
-                helper.updateDB(guthaben, benutzer_name);
-                //TODO Im Profil wird der Kauf in die Liste hinzugefügt
-                String name_von_textview ="Netflix";
-                profil.updateListe(name_von_textview);
-
-                //...
-
         }else{
             String[] answers = {"Guthaben Aufladen", "Zurück zu den Angeboten"};
             AlertDialog.Builder builder = new AlertDialog.Builder(this);
@@ -79,4 +73,14 @@ public class Angebote extends AppCompatActivity {
             builder.show();
     }
 }
+    public void machWasZuTunIst(double guthaben, double preis){
+        double neues_guthaben = 0;
+        neues_guthaben = guthaben - preis;
+        guthaben = neues_guthaben;
+        //Datenbank updaten
+        helper.updateDB(guthaben, benutzer_name);
+        TextView angebot_name = (TextView) findViewById(R.id.name_angebot_eins);
+        String a_name = angebot_name.getText().toString();
+        profil.updateListe(a_name);
+    }
 }
