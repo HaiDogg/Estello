@@ -14,11 +14,19 @@ public class DatabaseHelper extends SQLiteOpenHelper{
     //Version, DBname, tablenames, columnnames
     public static final int DATABASE_VERSION = 1;
     public static final String DATABASE_NAME = "slicko.db";
+
+
     public static final String TABLE_NAME = "user";
     public static final String COLUMN_NAME = "user_name";
     public static final String COLUMN_PASS = "user_pass";
-    //Guthaben
     public static final String COLUMN_GUTHABEN = "guthaben";
+
+    public static final String TABLE_ANGEBOTE= "angebote";
+    public static final String COLUMN_NAME = "user_name";
+    public static final String COLUMN_PASS = "user_pass";
+    public static final String COLUMN_GUTHABEN = "guthaben";
+
+
 
 
     //Objekt Datenbank
