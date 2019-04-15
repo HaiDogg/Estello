@@ -1,12 +1,8 @@
 package com.example.hdgg.estello;
 
-import android.content.Context;
 import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
-import android.util.Log;
-import android.view.Menu;
-import android.view.MenuItem;
 import android.view.View;
 import android.widget.EditText;
 import android.widget.Toast;
@@ -44,7 +40,7 @@ public class MainActivity extends AppCompatActivity {
         String passwortGeprueft = helper.suchePasswort(str_name);
 
         if (str_pw.equals(passwortGeprueft)) {
-            Intent i = new Intent(MainActivity.this, Kategorie.class);
+            Intent i = new Intent(MainActivity.this, Angebote.class);
             startActivity(i);
         }
         else {

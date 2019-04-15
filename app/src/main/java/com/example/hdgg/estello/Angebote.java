@@ -5,7 +5,7 @@ import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 
-public class Kategorie extends AppCompatActivity {
+public class Angebote extends AppCompatActivity {
 
     // hier kommen die Kategorien rein
 
@@ -15,7 +15,7 @@ public class Kategorie extends AppCompatActivity {
     }
 
     public void meinProfil(final View view){
-        Intent i = new Intent(Kategorie.this, Profil.class);
+        Intent i = new Intent(Angebote.this, Profil.class);
         startActivity(i);
     }
 }
