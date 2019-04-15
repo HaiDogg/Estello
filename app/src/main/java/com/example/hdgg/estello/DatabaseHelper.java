@@ -59,21 +59,28 @@ public class DatabaseHelper extends SQLiteOpenHelper{
 
     public String suchePasswort(String str_name){
         db = this.getReadableDatabase();
-        String abfrage ="select * from "+ TABLE_NAME;
+        String abfrage ="SELECT * FROM "+ TABLE_NAME;
         Cursor cursor= db.rawQuery(abfrage, null);
         String a, b;
         b = "Nicht auffindbar";
         if (cursor.moveToFirst()){
             do{
-                a = cursor.getString(1);
+                a = cursor.getString(0); // Hier aufmerksam sein, ob das anders ist wegen fehlender ID , in letzten Programm 1 und 2
                 if(a.equals(str_name)){
-                    b = cursor.getString(2);
+                    b = cursor.getString(1); // Same
                     break;
                 }
             }while(cursor.moveToNext());
         }return b;
     }
 
+    public void updateDB(double guthaben, String benutzer_name){
+        db = this.getWritableDatabase();
+        String updateString = "UPDATE " + TABLE_NAME +" SET "+ COLUMN_GUTHABEN+" = "+  guthaben+ "" +
+                "WHERE "+ COLUMN_NAME+" LIKE "+ benutzer_name;
+        db.execSQL(updateString );
+        db.close();
+    }
 
     @Override
     public void onUpgrade(SQLiteDatabase db, int oldVersion, int newVersion) {
