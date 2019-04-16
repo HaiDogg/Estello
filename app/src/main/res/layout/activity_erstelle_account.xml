@@ -5,21 +5,21 @@
 
 
     <TextView
-    android:id="@+id/tv_eingabe"
-    android:layout_width="wrap_content"
-    android:layout_height="wrap_content"
-    android:layout_alignParentTop="true"
-    android:layout_centerHorizontal="true"
-    android:layout_marginTop="111dp"
-    android:text="Bitte gib deine Daten ein" />
+        android:id="@+id/tv_eingabe"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentTop="true"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="111dp"
+        android:text="Bitte gib deine Daten ein" />
 
     <EditText
         android:id="@+id/benutzername_neu"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_alignParentTop="true"
+        android:layout_below="@+id/tv_eingabe"
         android:layout_centerHorizontal="true"
-        android:layout_marginTop="145dp"
+        android:layout_marginTop="15dp"
         android:ems="10"
         android:hint="Name"
         android:inputType="textPersonName" />
@@ -28,8 +28,11 @@
         android:id="@+id/benutzerpasswort_neu"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_above="@+id/ok_account"
         android:layout_below="@+id/benutzername_neu"
         android:layout_centerHorizontal="true"
+        android:layout_marginTop="15dp"
+        android:layout_marginBottom="258dp"
         android:ems="10"
         android:hint="Passwort"
         android:inputType="textPersonName" />
@@ -43,4 +46,5 @@
         android:layout_marginBottom="174dp"
         android:text="Ok"
         android:onClick="machRichtigenAccount"/>
+
 </RelativeLayout>
