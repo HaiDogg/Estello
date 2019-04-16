@@ -29,11 +29,23 @@ public class Angebote extends AppCompatActivity {
         setContentView(R.layout.activity_angebote);
     }
 
+    //Funktion, mit der man zu der "Profil" Activity zurückkommt
     public void meinProfil(final View view){
         Intent i = new Intent(Angebote.this, Profil.class);
         startActivity(i);
     }
 
+    /*
+    * Funktion, in der verglichen wird, ob der Kunde genug Guthaben hat, um den Artikel zu kaufen.
+    * Wenn dem so ist, wird er mit einem AlertDialog gefragt, ob er sich sicher ist, dass er den Artikel
+    * erwerben will. Wenn er sich sicher ist, wird die Funktion "machWasZuTunIst" aufgerufen, welche
+    * das Guthaben in der Datenbank updatet. Außerdem wird der Name des Artikels im Profil des Kunden
+    * im Bereich "Meine Käufe" angezeigt. Wenn er sich nicht sicher ist, kann er zurück zur Angebotsübersicht gehen.
+    * Wenn der Kunde nicht genügend Guthaben hat, hat er die Möglichkeit sich zu seinem Profil leiten
+    * zu lassen, wo er den Button "Guthaben aufladen" findet. Ansonsten kann er zurück zur Angebots-
+    * übersicht.
+    *
+    * */
     public void kaufMich(final double guthaben, final double preis){
         if (guthaben >= preis){
             String[] answers = {"yes", "no"};
@@ -73,6 +85,8 @@ public class Angebote extends AppCompatActivity {
             builder.show();
     }
 }
+
+    //Funktion, die das Guthaben in der Datenbank updatet.
     public void machWasZuTunIst(double guthaben, double preis){
         double neues_guthaben = 0;
         neues_guthaben = guthaben - preis;

@@ -5,4 +5,6 @@
     <string name="kategorien">Kategorien</string>
     <string name="action_settings">Settings</string>
     <string name="errorMessage">Das Feld darf nicht leer sein.</string>
+    <string name="profil_id">Mein Profil</string>
+    <string name="kategorien_id">Angebote</string>
 </resources>
