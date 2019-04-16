@@ -6,7 +6,6 @@ public class Benutzer {
     private double guthaben;
 
 
-
 public Benutzer(){
 
     }

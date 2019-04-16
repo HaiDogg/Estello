@@ -51,7 +51,6 @@ public class MainActivity extends AppCompatActivity {
     public void machDirEinenAccount(final View view){
         Intent i = new Intent(MainActivity.this, ErstelleAccount.class);
         startActivity(i);
-
     }
 
 }
