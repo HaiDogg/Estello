@@ -7,6 +7,9 @@ import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
 import android.util.Log;
 
+import java.util.ArrayList;
+import java.util.List;
+
 public class DatabaseHelper extends SQLiteOpenHelper{
 
     private static final String LOG_TAG = DatabaseHelper.class.getSimpleName();
@@ -21,7 +24,9 @@ public class DatabaseHelper extends SQLiteOpenHelper{
     public static final String COLUMN_PASS = "user_pass";
     public static final String COLUMN_GUTHABEN = "guthaben";
 
-
+    public static final String TABLE_LISTING = "listings";
+    public static final String COLUMN_LISTING_NAME = "listingname";
+    public static final String COLUMN_LISTING_PREIS = "listingpreis";
 
 
 
@@ -32,8 +37,6 @@ public class DatabaseHelper extends SQLiteOpenHelper{
     public DatabaseHelper(Context context){
         super(context,"PLATZHALTER_DATENBANK", null, 1);
         Log.d(LOG_TAG,"Helperklasse hat die Datenbank: " +getDatabaseName()+ "erzeugt.");
-
-
     }
 
 
@@ -43,7 +46,11 @@ public class DatabaseHelper extends SQLiteOpenHelper{
         final String SQL_CREATE_USER = "CREATE TABLE " + TABLE_NAME + "(" + COLUMN_NAME + "TEXT PRIMARY KEY, "
                 + COLUMN_PASS + "TEXT," + COLUMN_GUTHABEN+ "FLOAT DEFAULT 10.00)";
 
+        final String SQL_CREATE_LISTING = "CREATE TABLE " + TABLE_LISTING + "(" + COLUMN_LISTING_NAME+ "TEXT PRIMARY KEY, "
+                + COLUMN_LISTING_PREIS + "FLOAT)";
+
         db.execSQL(SQL_CREATE_USER);
+        db.execSQL(SQL_CREATE_LISTING);
 
         this.db = db;
     }
@@ -74,7 +81,7 @@ public class DatabaseHelper extends SQLiteOpenHelper{
         }return b;
     }
 
-    public void updateDB(double guthaben, String benutzer_name){
+    public void updateGuthabenDB(double guthaben, String benutzer_name){
         db = this.getWritableDatabase();
         String updateString = "UPDATE " + TABLE_NAME +" SET "+ COLUMN_GUTHABEN+" = "+  guthaben+ "" +
                 "WHERE "+ COLUMN_NAME+" LIKE "+ benutzer_name;
@@ -82,9 +89,47 @@ public class DatabaseHelper extends SQLiteOpenHelper{
         db.close();
     }
 
+/*
+    //Posten von Listings
+    public void ListingsErstellen(){
+        Listing l1 = new Listing("Netflix", 50.00);
+        Listing l2 = new Listing("Spotify", 80.00);
+        Listing l3 = new Listing("Amazon Prime", 10.00);
+    }
+
+    public void ListingHinzufuegen(Listing listing){
+        db = this.getWritableDatabase();
+        ContentValues cv = new ContentValues();
+        cv.put(COLUMN_LISTING_NAME, listing.getListing_name());
+        cv.put(COLUMN_LISTING_PREIS, listing.getPreis());
+        db.insert(TABLE_LISTING, null , cv);
+        db.close();
+    }
+
+    public List <Listing> getAlleListings(){
+        List<Listing> angebotsListing = new ArrayList<>();
+        db = getReadableDatabase();
+        Cursor c = db.rawQuery("select * from "+ TABLE_LISTING, null);
+        if(c.moveToFirst()){
+            do{
+                Listing listing = new Listing();
+                listing.setListing_name(c.getString(c.getColumnIndex(COLUMN_LISTING_NAME)));
+                listing.setPreis(c.getDouble(c.getColumnIndex(COLUMN_LISTING_PREIS)));
+                angebotsListing.add(listing);
+
+            }while(c.moveToNext());
+        }
+        c.close();
+
+        return angebotsListing;
+    }
+
+*/
     @Override
     public void onUpgrade(SQLiteDatabase db, int oldVersion, int newVersion) {
         db.execSQL("DROP TABLE IF EXISTS "+ TABLE_NAME);
+        db.execSQL("DROP TABLE IF EXISTS "+ TABLE_LISTING);
+
         onCreate(db);
     }
 }

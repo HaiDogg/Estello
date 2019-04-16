@@ -15,6 +15,8 @@ import android.widget.Button;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import java.util.List;
+
 public class Angebote extends AppCompatActivity {
 
     DatabaseHelper helper = new DatabaseHelper(this);
@@ -28,6 +30,13 @@ public class Angebote extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_angebote);
     }
+
+
+    //Alle Angebote holen:
+    //private List <Listing> angebotsliste;
+    //angebotsliste = helper.getAlleListings();
+
+
 
     //Funktion, mit der man zu der "Profil" Activity zurückkommt
     public void meinProfil(final View view){
@@ -92,7 +101,7 @@ public class Angebote extends AppCompatActivity {
         neues_guthaben = guthaben - preis;
         guthaben = neues_guthaben;
         //Datenbank updaten
-        helper.updateDB(guthaben, benutzer_name);
+        helper.updateGuthabenDB(guthaben, benutzer_name);
         TextView angebot_name = (TextView) findViewById(R.id.name_angebot_eins);
         String a_name = angebot_name.getText().toString();
         profil.updateListe(a_name);
