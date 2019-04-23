@@ -12,7 +12,6 @@ import java.util.List;
 
 public class DatabaseHelper extends SQLiteOpenHelper{
 
-    private static final String LOG_TAG = DatabaseHelper.class.getSimpleName();
 
     //Version, DBname, tablenames, columnnames
     public static final int DATABASE_VERSION = 1;
@@ -20,7 +19,7 @@ public class DatabaseHelper extends SQLiteOpenHelper{
 
 
     public static final String TABLE_NAME = "user";
-    public static final String COLUMN_NAME = "user_name";
+    public static final String COLUMN_NAME = "user_name_";
     public static final String COLUMN_PASS = "user_pass";
     public static final String COLUMN_GUTHABEN = "guthaben";
 
@@ -35,24 +34,22 @@ public class DatabaseHelper extends SQLiteOpenHelper{
     SQLiteDatabase db;
 
     public DatabaseHelper(Context context){
-        super(context,"PLATZHALTER_DATENBANK", null, 1);
-        Log.d(LOG_TAG,"Helperklasse hat die Datenbank: " +getDatabaseName()+ "erzeugt.");
+        super(context,DATABASE_NAME, null, 1);
     }
 
 
+    private static final String SQL_CREATE_USER = "create table user (user_name_ text not null, user_pass text not null);";
 
+
+    //final String SQL_CREATE_LISTING = "CREATE TABLE " + TABLE_LISTING + "(" + COLUMN_LISTING_NAME+ "TEXT PRIMARY KEY, "
+    //        + COLUMN_LISTING_PREIS + "FLOAT)";
     @Override
     public void onCreate(SQLiteDatabase db) {
-        final String SQL_CREATE_USER = "CREATE TABLE " + TABLE_NAME + "(" + COLUMN_NAME + "TEXT PRIMARY KEY, "
-                + COLUMN_PASS + "TEXT," + COLUMN_GUTHABEN+ "FLOAT DEFAULT 10.00)";
-
-        final String SQL_CREATE_LISTING = "CREATE TABLE " + TABLE_LISTING + "(" + COLUMN_LISTING_NAME+ "TEXT PRIMARY KEY, "
-                + COLUMN_LISTING_PREIS + "FLOAT)";
-
+        
         db.execSQL(SQL_CREATE_USER);
-        db.execSQL(SQL_CREATE_LISTING);
-
+        //db.execSQL(SQL_CREATE_LISTING);
         this.db = db;
+
     }
 
     public void fuegKontaktEin(Benutzer b ){
