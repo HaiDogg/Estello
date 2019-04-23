@@ -31,11 +31,14 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_below="@+id/benutzername_neu"
-        android:layout_centerHorizontal="true"
+        android:layout_alignParentStart="true"
+        android:layout_alignParentEnd="true"
+        android:layout_marginStart="100dp"
+        android:layout_marginTop="18dp"
+        android:layout_marginEnd="98dp"
         android:ems="10"
         android:hint="@string/passwort_account"
-        android:inputType="textPersonName"
-        android:importantForAutofill="no" />
+        android:inputType="textPersonName" />
 
     <Button
         android:id="@+id/ok_account"

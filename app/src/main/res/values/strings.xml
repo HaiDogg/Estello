@@ -7,4 +7,8 @@
     <string name="errorMessage">Das Feld darf nicht leer sein.</string>
     <string name="profil_id">Mein Profil</string>
     <string name="kategorien_id">Angebote</string>
+    <string name="ok_account">Ok</string>
+    <string name="name_account">Name</string>
+    <string name="passwort_account">Passwort</string>
+    <string name="bitte_gib_deine_daten_ein">Bitte gib deine Daten ein</string>
 </resources>
