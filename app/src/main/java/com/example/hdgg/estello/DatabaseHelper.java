@@ -34,8 +34,8 @@ public class DatabaseHelper extends SQLiteOpenHelper{
     //Objekt Datenbank
     SQLiteDatabase db;
 
-    DatabaseHelper(Context context){
-        super(context,"PLATZHALTER_DATENBANK", null, DATABASE_VERSION);
+    public DatabaseHelper(Context context){
+        super(context,"PLATZHALTER_DATENBANK", null, 1);
         Log.d(LOG_TAG,"Helperklasse hat die Datenbank: " +getDatabaseName()+ "erzeugt.");
     }
 
