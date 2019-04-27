@@ -11,4 +11,6 @@
     <string name="name_account">Name</string>
     <string name="passwort_account">Passwort</string>
     <string name="bitte_gib_deine_daten_ein">Bitte gib deine Daten ein</string>
+    <string name="textAngebote">Angebote</string>
+    <string name="kaufMich">Kauf Mich!</string>
 </resources>
