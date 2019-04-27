@@ -68,7 +68,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_gravity="center_vertical"
-                    android:text="Netflix Jahresabo für 10€"
+                    android:text="    Netflix Jahresabo für 10€     "
                     android:textAlignment="center"
                     android:textColor="@android:color/black"
                     android:textSize="12sp"
@@ -116,7 +116,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_gravity="center_vertical"
-                    android:text="Spotify Jahresabo für 5€"
+                    android:text="    Spotify Jahresabo für 5€    "
                     android:textAlignment="center"
                     android:textColor="@android:color/black"
                     android:textSize="12sp"
@@ -155,16 +155,16 @@
 
                 <android.support.v7.widget.AppCompatImageView
 
-                    android:layout_gravity="center_vertical"
                     android:layout_width="75dp"
                     android:layout_height="75dp"
-                    android:src="@drawable/mcfit"
-                    android:scaleType="centerCrop"/>
+                    android:layout_gravity="center_vertical"
+                    android:scaleType="centerCrop"
+                    android:src="@drawable/mcfit" />
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_gravity="center_vertical"
-                    android:text="McFit Jahresabo für 20€"
+                    android:text="    McFit Jahresabo für 20€    "
                     android:textAlignment="center"
                     android:textColor="@android:color/black"
                     android:textSize="12sp"

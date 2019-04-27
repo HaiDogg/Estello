@@ -102,7 +102,7 @@ public class Angebote extends AppCompatActivity {
         guthaben = neues_guthaben;
         //Datenbank updaten
         helper.updateGuthabenDB(guthaben, benutzer_name);
-        TextView angebot_name = (TextView) findViewById(R.id.name_angebot_eins);
+        TextView angebot_name = (TextView) findViewById(R.id.angebote);//nochmal strings für die Angebote einfuegen
         String a_name = angebot_name.getText().toString();
         profil.updateListe(a_name);
     }
