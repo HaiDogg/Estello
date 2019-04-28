@@ -7,6 +7,7 @@ import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
 import android.util.Log;
 
+import java.sql.ResultSet;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -38,14 +39,14 @@ public class DatabaseHelper extends SQLiteOpenHelper{
     }
 
 
-    private static final String SQL_CREATE_USER = "create table user (user_name_ text not null, user_pass text not null);";
+    private static final String SQL_CREATE_USER = "create table user (user_name_ text not null, user_pass text not null, guthaben float not null default 10.00);";
 
 
     //final String SQL_CREATE_LISTING = "CREATE TABLE " + TABLE_LISTING + "(" + COLUMN_LISTING_NAME+ "TEXT PRIMARY KEY, "
     //        + COLUMN_LISTING_PREIS + "FLOAT)";
     @Override
     public void onCreate(SQLiteDatabase db) {
-        
+
         db.execSQL(SQL_CREATE_USER);
         //db.execSQL(SQL_CREATE_LISTING);
         this.db = db;

@@ -2,6 +2,7 @@ package com.example.hdgg.estello;
 
 import android.app.Activity;
 import android.content.Intent;
+import android.database.Cursor;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
@@ -25,18 +26,24 @@ public class MainActivity extends AppCompatActivity {
 
     }
 
+
+
     /*Funktion, die prüft, ob der Benutzer schon existiert und wenn dem so ist, das Passwort prüft.
     Wenn das Passwort stimmt, wird der Benutzer zu der "Angebote" Activity gefürt, ansonsten wird
     der Toast ausgegeben, dass die Login Daten nicht stimmen */
     public void darfstDurch(final View view){
+
         EditText name = (EditText) findViewById(R.id.name_text);
-        EditText pass = (EditText) findViewById(R.id.pass_text);
         String str_name = name.getText().toString();
+
+        EditText pass = (EditText) findViewById(R.id.pass_text);
+
         String str_pw = pass.getText().toString();
         String passwortGeprueft = helper.suchePasswort(str_name);
 
         if (str_pw.equals(passwortGeprueft)) {
-            Intent i = new Intent(MainActivity.this, Angebote.class);
+            Intent i = new Intent(MainActivity.this, Profil.class);
+            i.putExtra("brauche_ich", str_name);
             startActivity(i);
         }
         else {

@@ -29,6 +29,23 @@ public class Angebote extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_angebote);
+
+
+        String newString;
+        if (savedInstanceState == null) {
+            Bundle extras = getIntent().getExtras();
+            if(extras == null) {
+                newString= null;
+            } else {
+                newString= extras.getString("brauche");
+            }
+        } else {
+            newString= (String) savedInstanceState.getSerializable("brauche");
+        }
+
+        TextView tv_name = (TextView) findViewById(R.id.textView);
+        tv_name.setText("Hallo, "+ newString );
+
     }
 
 
@@ -55,7 +72,11 @@ public class Angebote extends AppCompatActivity {
     * übersicht.
     *
     * */
-    public void kaufMich(final double guthaben, final double preis){
+
+
+    public void kaufMich(final double guthaben, final int preis){
+
+
         if (guthaben >= preis){
             String[] answers = {"yes", "no"};
             AlertDialog.Builder builder = new AlertDialog.Builder(this);
@@ -77,7 +98,7 @@ public class Angebote extends AppCompatActivity {
         }else{
             String[] answers = {"Guthaben Aufladen", "Zurück zu den Angeboten"};
             AlertDialog.Builder builder = new AlertDialog.Builder(this);
-            builder.setTitle("Bist du dir sicher");
+            builder.setTitle("Du hast nicht genung Geld");
             builder.setItems(answers, new DialogInterface.OnClickListener() {
                 @Override
                 public void onClick(DialogInterface dialog, int which) {

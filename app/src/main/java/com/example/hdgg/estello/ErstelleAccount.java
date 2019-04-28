@@ -33,19 +33,20 @@ public class ErstelleAccount extends AppCompatActivity {
         EditText userName = (EditText) findViewById(R.id.benutzername_neu);
         EditText userPasswort = (EditText) findViewById(R.id.benutzerpasswort_neu);
 
-        String userNameNeu = userName.getText().toString();
+        String str_name = userName.getText().toString();
         String userPasswortNeu= userPasswort.getText().toString();
 
         //Objekt Kontakt erstellen
         Benutzer b = new Benutzer();
-        b.setBenutzer_name(userNameNeu);
+        b.setBenutzer_name(str_name);
         b.setBenutzer_pw(userPasswortNeu);
 
         //Methode soll eingefügt werden
         helper.fuegKontaktEin( b );
 
         //Intent zur Kategorien-Activity
-        Intent i =new Intent(ErstelleAccount.this, Angebote.class);
+        Intent i =new Intent(ErstelleAccount.this, Profil.class);
+        i.putExtra("brauche_ich", str_name);
         startActivity(i);
     }
 

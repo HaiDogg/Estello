@@ -25,6 +25,19 @@
                 android:layout_centerInParent="true"
                 />
 
+            <Button
+                android:id="@+id/gpofil"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Mein Profil"
+                android:onClick="meinProfil"/>
+
+        <TextView
+            android:id="@+id/textView"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="TextView" />
+
 
     </RelativeLayout>
 
@@ -74,12 +87,12 @@
                     android:textSize="12sp"
                     android:textStyle="bold"/>
 
-                <android.support.v7.widget.AppCompatButton
-                    android:text="@string/kaufMich"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_gravity="center_vertical"
-                    />
+            <android.support.v7.widget.AppCompatButton
+                android:id="@+id/km1"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_vertical"
+                android:text="@string/kaufMich" />
             </LinearLayout>
         </android.support.v7.widget.CardView>
 
@@ -123,6 +136,7 @@
                     android:textStyle="bold" />
 
                 <android.support.v7.widget.AppCompatButton
+                    android:id="@+id/km2"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_gravity="center_vertical"
@@ -171,11 +185,11 @@
                     android:textStyle="bold"/>
 
                 <android.support.v7.widget.AppCompatButton
-                    android:text="@string/kaufMich"
+                    android:id="@+id/km3"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_gravity="center_vertical"
-                    />
+                    android:text="@string/kaufMich" />
 
 
             </LinearLayout>
