@@ -62,6 +62,14 @@ public class DatabaseHelper extends SQLiteOpenHelper{
         db.close();
     }
 
+    //mach float
+    public float welchesGuthaben(String newString){
+        db = this.getReadableDatabase();
+        String abfrage = "SELECT guthaben from "+TABLE_NAME+"WHERE NAME =" + newString;
+        float gutaben =0;
+
+        return gutaben;
+    }
     public String suchePasswort(String str_name){
         db = this.getReadableDatabase();
         String abfrage ="SELECT * FROM "+ TABLE_NAME;

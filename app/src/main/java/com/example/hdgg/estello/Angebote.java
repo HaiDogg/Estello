@@ -20,17 +20,12 @@ import java.util.List;
 public class Angebote extends AppCompatActivity {
 
     DatabaseHelper helper = new DatabaseHelper(this);
-    Profil profil = new Profil();
-    private String benutzer_name; // TODO den müssen wir holen
-
-
-    // hier kommen die Kategorien rein
 
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_angebote);
 
-
+        // Hier wird der User Name rausgeholt und begrüßt
         String newString;
         if (savedInstanceState == null) {
             Bundle extras = getIntent().getExtras();
@@ -42,18 +37,18 @@ public class Angebote extends AppCompatActivity {
         } else {
             newString= (String) savedInstanceState.getSerializable("brauche");
         }
-
-        TextView tv_name = (TextView) findViewById(R.id.textView);
-        tv_name.setText("Hallo, "+ newString );
+        //TODO funktion die über namen das guthaben aus der db holt
+        holGuthaben(newString);
+        //TextView tv_name = (TextView) findViewById(R.id.textView);
+        //tv_name.setText("Die Angebote gibt es für dich, "+ newString );
 
     }
 
+    public float holGuthaben(String newString){
 
-    //Alle Angebote holen:
-    //private List <Listing> angebotsliste;
-    //angebotsliste = helper.getAlleListings();
-
-
+        float guthaben = helper.welchesGuthaben(newString);
+        return guthaben;
+    }
 
     //Funktion, mit der man zu der "Profil" Activity zurückkommt
     public void meinProfil(final View view){
@@ -73,9 +68,12 @@ public class Angebote extends AppCompatActivity {
     *
     * */
 
+    public void kaufMich(){
 
-    public void kaufMich(final double guthaben, final int preis){
+        //guthaben von kunde geholt mit dem namen den wir übergeben kriegen
 
+        final double guthaben=0;
+        final double preis=0;
 
         if (guthaben >= preis){
             String[] answers = {"yes", "no"};
@@ -122,9 +120,9 @@ public class Angebote extends AppCompatActivity {
         neues_guthaben = guthaben - preis;
         guthaben = neues_guthaben;
         //Datenbank updaten
-        helper.updateGuthabenDB(guthaben, benutzer_name);
+        //helper.updateGuthabenDB(guthaben, benutzer_name);
         TextView angebot_name = (TextView) findViewById(R.id.angebote);//nochmal strings für die Angebote einfuegen
         String a_name = angebot_name.getText().toString();
-        profil.updateListe(a_name);
+       // profil.updateListe(a_name);
     }
 }
