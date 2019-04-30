@@ -44,9 +44,12 @@ public class Angebote extends AppCompatActivity {
 
     }
 
-    public float holGuthaben(String newString){
+    public int holGuthaben(String newString){
 
-        float guthaben = helper.welchesGuthaben(newString);
+
+        int guthaben = helper.welchesGuthaben(newString);
+        TextView tv_guthaben = (TextView) findViewById(R.id.textView);
+        tv_guthaben.setText( "h"+ guthaben );
         return guthaben;
     }
 

@@ -39,7 +39,7 @@ public class DatabaseHelper extends SQLiteOpenHelper{
     }
 
 
-    private static final String SQL_CREATE_USER = "create table user (user_name_ text not null, user_pass text not null, guthaben float not null default 10.00);";
+    private static final String SQL_CREATE_USER = "create table user (user_name_ text not null, user_pass text not null, guthaben int not null default 10);";
 
 
     //final String SQL_CREATE_LISTING = "CREATE TABLE " + TABLE_LISTING + "(" + COLUMN_LISTING_NAME+ "TEXT PRIMARY KEY, "
@@ -62,13 +62,21 @@ public class DatabaseHelper extends SQLiteOpenHelper{
         db.close();
     }
 
-    //mach float
-    public float welchesGuthaben(String newString){
-        db = this.getReadableDatabase();
-        String abfrage = "SELECT guthaben from "+TABLE_NAME+"WHERE NAME =" + newString;
-        float gutaben =0;
-
-        return gutaben;
+    public int welchesGuthaben(String newString) {
+       db = this.getReadableDatabase();
+        String abfrage = "SELECT * FROM " + TABLE_NAME;
+        Cursor cursor = db.rawQuery(abfrage, null);
+        String a;
+        int guthaben=0;
+        if (cursor.moveToFirst()) {
+            do {
+                a = cursor.getString(0);
+                if (a.equals(newString)) {
+                    guthaben = cursor.getInt(2);
+                    break;
+                }
+            } while (cursor.moveToNext());
+        }return guthaben;
     }
     public String suchePasswort(String str_name){
         db = this.getReadableDatabase();
@@ -95,42 +103,6 @@ public class DatabaseHelper extends SQLiteOpenHelper{
         db.close();
     }
 
-/*
-    //Posten von Listings
-    public void ListingsErstellen(){
-        Listing l1 = new Listing("Netflix", 50.00);
-        Listing l2 = new Listing("Spotify", 80.00);
-        Listing l3 = new Listing("Amazon Prime", 10.00);
-    }
-
-    public void ListingHinzufuegen(Listing listing){
-        db = this.getWritableDatabase();
-        ContentValues cv = new ContentValues();
-        cv.put(COLUMN_LISTING_NAME, listing.getListing_name());
-        cv.put(COLUMN_LISTING_PREIS, listing.getPreis());
-        db.insert(TABLE_LISTING, null , cv);
-        db.close();
-    }
-
-    public List <Listing> getAlleListings(){
-        List<Listing> angebotsListing = new ArrayList<>();
-        db = getReadableDatabase();
-        Cursor c = db.rawQuery("select * from "+ TABLE_LISTING, null);
-        if(c.moveToFirst()){
-            do{
-                Listing listing = new Listing();
-                listing.setListing_name(c.getString(c.getColumnIndex(COLUMN_LISTING_NAME)));
-                listing.setPreis(c.getDouble(c.getColumnIndex(COLUMN_LISTING_PREIS)));
-                angebotsListing.add(listing);
-
-            }while(c.moveToNext());
-        }
-        c.close();
-
-        return angebotsListing;
-    }
-
-*/
     @Override
     public void onUpgrade(SQLiteDatabase db, int oldVersion, int newVersion) {
         db.execSQL("DROP TABLE IF EXISTS "+ TABLE_NAME);
