@@ -32,18 +32,33 @@ public class Angebote extends AppCompatActivity {
             if(extras == null) {
                 newString= null;
             } else {
-                newString= extras.getString("brauche");
+                newString= getIntent().getStringExtra("brauche");
             }
         } else {
             newString= (String) savedInstanceState.getSerializable("brauche");
         }
         //TODO funktion die über namen das guthaben aus der db holt
-        holGuthaben(newString);
-        //TextView tv_name = (TextView) findViewById(R.id.textView);
-        //tv_name.setText("Die Angebote gibt es für dich, "+ newString );
+       // holGuthaben(newString);
+        TextView tv_name = (TextView) findViewById(R.id.textView);
+        tv_name.setText("Die Angebote gibt es für dich, "+ newString );
 
     }
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+    
     public int holGuthaben(String newString){
 
 
