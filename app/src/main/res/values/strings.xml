@@ -13,4 +13,11 @@
     <string name="bitte_gib_deine_daten_ein">Bitte gib deine Daten ein</string>
     <string name="textAngebote">Angebote</string>
     <string name="kaufMich">Kauf Mich!</string>
+    <string name="netflixPreis">10</string>
+    <string name="spotifyPreis">5</string>
+    <string name= "mcfitPreis">20</string>
+    <string name= "mcfit">McFit</string>
+    <string name= "spotify">Spotify</string>
+    <string name= "netflix">Netflix</string>
 </resources>
+

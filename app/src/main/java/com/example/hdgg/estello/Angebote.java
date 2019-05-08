@@ -1,7 +1,9 @@
 package com.example.hdgg.estello;
 
+import android.content.ContentValues;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.database.sqlite.SQLiteDatabase;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
@@ -133,10 +135,18 @@ public class Angebote extends AppCompatActivity {
 }
 
     //Funktion, die das Guthaben in der Datenbank updatet.
-    public void machWasZuTunIst(double guthaben, double preis){
+    public void machWasZuTunIst(double guthaben, double preis, String name){
         double neues_guthaben = 0;
         neues_guthaben = guthaben - preis;
         guthaben = neues_guthaben;
+
+        ContentValues contentvalues = new ContentValues();
+        SQLiteDatabase db = getDatabasePath(DatabaseHelper.COLUMN_NAME);
+        db.update("slicko.db", contentvalues, "COLUMN_GUTHABEN = ?",new double[]{neues_guthaben});
+        //
+
+
+
         //Datenbank updaten
         //helper.updateGuthabenDB(guthaben, benutzer_name);
         TextView angebot_name = (TextView) findViewById(R.id.angebote);//nochmal strings für die Angebote einfuegen
