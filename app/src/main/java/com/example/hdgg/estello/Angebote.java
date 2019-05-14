@@ -50,18 +50,6 @@ public class Angebote extends AppCompatActivity {
 
 
 
-
-
-
-
-
-
-
-
-
-
-
-
     public int holGuthaben(String newString){
 
 
@@ -105,8 +93,7 @@ public class Angebote extends AppCompatActivity {
                 public void onClick(DialogInterface dialog, int which) {
                     // the user clicked on colors[which]
                     if(which == 0){
-                        machWasZuTunIst(guthaben,preis);
-                        Log.d("TAG","hahah");
+                        machWasZuTunIst(guthaben,preis, "Esti");
                     }
                     else{
                         Intent i = new Intent(Angebote.this,Angebote.class);
@@ -143,11 +130,9 @@ public class Angebote extends AppCompatActivity {
         guthaben = neues_guthaben;
 
         ContentValues contentvalues = new ContentValues();
-        SQLiteDatabase db = getDatabasePath(DatabaseHelper.COLUMN_NAME);
-        db.update("slicko.db", contentvalues, "COLUMN_GUTHABEN = ?",new double[]{neues_guthaben});
+        //SQLiteDatabase db = getDatabasePath(DatabaseHelper.COLUMN_NAME);
+        //db.update("slicko.db", contentvalues, "COLUMN_GUTHABEN = ?",new double[]{neues_guthaben});
         //
-
-
 
         //Datenbank updaten
         //helper.updateGuthabenDB(guthaben, benutzer_name);

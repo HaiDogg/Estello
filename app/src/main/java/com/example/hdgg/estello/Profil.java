@@ -15,8 +15,6 @@ public class Profil extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_profil);
         welcherName();
-        Log.d("oncreate","oncreate methode von profil");
-        welcherKauf();
     }
 
     public void gehZuAngebote(final View view){
@@ -34,21 +32,11 @@ public class Profil extends AppCompatActivity {
         return newString;
     }
 
-    public void welcherKauf(){
-        Log.d("wk","welcher kauf");
-        try {
-            String kauf;
-            Bundle extra = getIntent().getExtras();
-            kauf =extra.getString("kauf");
-            zeigKaufean(kauf);
-        }catch(Exception e) {
-            Log.d("Kein Kauf","Noch kein Kauf");
-        }
-    }
 
     public void zeigKaufean(String kauf){
+        String mein_kauf= getIntent().getStringExtra("kauf");
         TextView kaufe = (TextView) findViewById(R.id.kaufe_id);
-        kaufe.setText(kauf);
+        kaufe.setText(mein_kauf);
     }
 
     public void zeigNamean(String newString){
