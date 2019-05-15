@@ -6,7 +6,7 @@
     android:layout_height="match_parent"
     android:orientation="vertical"
     android:weightSum="10"
-    tools:context=".Angebote"
+    tools:context="Angebote"
 
     >
 
@@ -91,15 +91,45 @@
                     android:layout_width="75dp"
                     android:layout_height="75dp"
                     android:src="@drawable/netflix" />
-                <TextView
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_vertical"
+                android:text="@string/netflix"
+                android:textAlignment="center"
+                android:textColor="@android:color/black"
+                android:textSize="12sp"
+                android:textStyle="bold" />
+
+            <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_gravity="center_vertical"
-                    android:text="    Netflix Jahresabo für 10€     "
+                    android:text=" Jahresabo für "
                     android:textAlignment="center"
                     android:textColor="@android:color/black"
                     android:textSize="12sp"
                     android:textStyle="bold"/>
+
+            <TextView
+                android:text="@string/netflixPreis"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_vertical"
+                android:textAlignment="center"
+                android:textColor="@android:color/black"
+                android:textSize="12sp"
+                android:textStyle="bold" />
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_vertical"
+                android:text=" €     "
+                android:textAlignment="center"
+                android:textColor="@android:color/black"
+                android:textSize="12sp"
+                android:textStyle="bold"/>
 
             <android.support.v7.widget.AppCompatButton
                 android:id="@+id/km1"
@@ -143,11 +173,39 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_gravity="center_vertical"
-                    android:text="    Spotify Jahresabo für 5€    "
+                    android:text="@string/spotify"
                     android:textAlignment="center"
                     android:textColor="@android:color/black"
                     android:textSize="12sp"
                     android:textStyle="bold" />
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center_vertical"
+                    android:text=" Jahresabo für "
+                    android:textAlignment="center"
+                    android:textColor="@android:color/black"
+                    android:textSize="12sp"
+                    android:textStyle="bold" />
+
+                <TextView
+                    android:text="@string/spotifyPreis"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center_vertical"
+                    android:textAlignment="center"
+                    android:textColor="@android:color/black"
+                    android:textSize="12sp"
+                    android:textStyle="bold" />
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center_vertical"
+                    android:text=" €     "
+                    android:textAlignment="center"
+                    android:textColor="@android:color/black"
+                    android:textSize="12sp"
+                    android:textStyle="bold"/>
 
                 <android.support.v7.widget.AppCompatButton
                     android:id="@+id/km2"
@@ -188,16 +246,44 @@
                     android:layout_gravity="center_vertical"
                     android:scaleType="centerCrop"
                     android:src="@drawable/mcfit" />
+
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_gravity="center_vertical"
-                    android:text="    McFit Jahresabo für 20€    "
+                    android:text="@string/mcfit"
+                    android:textAlignment="center"
+                    android:textColor="@android:color/black"
+                    android:textSize="12sp"
+                    android:textStyle="bold" />
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center_vertical"
+                    android:text=" Jahresabo für "
                     android:textAlignment="center"
                     android:textColor="@android:color/black"
                     android:textSize="12sp"
                     android:textStyle="bold"/>
 
+                <TextView
+                    android:text="@string/mcfitPreis"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center_vertical"
+                    android:textAlignment="center"
+                    android:textColor="@android:color/black"
+                    android:textSize="12sp"
+                    android:textStyle="bold" />
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center_vertical"
+                    android:text=" €     "
+                    android:textAlignment="center"
+                    android:textColor="@android:color/black"
+                    android:textSize="12sp"
+                    android:textStyle="bold"/>
                 <android.support.v7.widget.AppCompatButton
                     android:id="@+id/km3"
                     android:layout_width="wrap_content"
