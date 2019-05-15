@@ -95,11 +95,21 @@ public class DatabaseHelper extends SQLiteOpenHelper{
         }return b;
     }
 
-    public void updateGuthabenDB(double guthaben, String benutzer_name){
+    public void updateGuthabenDB(double guthaben,
+                                 double preis,
+                                 String benutzer_name){
         db = this.getWritableDatabase();
-        String updateString = "UPDATE " + TABLE_NAME +" SET "+ COLUMN_GUTHABEN+" = "+  guthaben+ "" +
-                "WHERE "+ COLUMN_NAME+" LIKE "+ benutzer_name;
-        db.execSQL(updateString );
+        //String updateString = "UPDATE " + TABLE_NAME +" SET "+ COLUMN_GUTHABEN+" = "+  guthaben+ "" +
+        //        "WHERE "+ COLUMN_NAME+" LIKE "+ benutzer_name;
+        //db.execSQL(updateString );
+
+
+        ContentValues values = new ContentValues();
+        values.put(this.COLUMN_GUTHABEN, guthaben - preis);
+        db.update("slicko.db", values, this.COLUMN_NAME + "=" + benutzer_name,null);
+
+
+        
         db.close();
     }
 
