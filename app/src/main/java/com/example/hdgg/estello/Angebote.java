@@ -130,8 +130,8 @@ public class Angebote extends AppCompatActivity {
         guthaben = neues_guthaben;
 
         ContentValues contentvalues = new ContentValues();
-        //SQLiteDatabase db = getDatabasePath(DatabaseHelper.COLUMN_NAME);
-        //db.update("slicko.db", contentvalues, "COLUMN_GUTHABEN = ?",new double[]{neues_guthaben});
+        //SQLiteDatabase db = getDatabase("slicko.db");
+        //db.update("slicko.db", contentvalues, "COLUMN_GUTHABEN = ?",new String[]{"1"});
         //
 
         //Datenbank updaten
