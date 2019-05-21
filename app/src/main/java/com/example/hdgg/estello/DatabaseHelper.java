@@ -6,16 +6,19 @@ import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
 import android.util.Log;
+import android.widget.SimpleCursorAdapter;
 
 import java.sql.ResultSet;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
 public class DatabaseHelper extends SQLiteOpenHelper{
 
 
     //Version, DBname, tablenames, columnnames
-    public static final int DATABASE_VERSION = 1;
+
+    public static final int DATABASE_VERSION = 2;
     public static final String DATABASE_NAME = "slicko.db";
 
 
@@ -23,10 +26,8 @@ public class DatabaseHelper extends SQLiteOpenHelper{
     public static final String COLUMN_NAME = "user_name_";
     public static final String COLUMN_PASS = "user_pass";
     public static final String COLUMN_GUTHABEN = "guthaben";
+    public static final String COLUMN_ARTIKEL = "artikel";
 
-    public static final String TABLE_LISTING = "listings";
-    public static final String COLUMN_LISTING_NAME = "listingname";
-    public static final String COLUMN_LISTING_PREIS = "listingpreis";
 
 
 
@@ -35,21 +36,22 @@ public class DatabaseHelper extends SQLiteOpenHelper{
     SQLiteDatabase db;
 
     public DatabaseHelper(Context context){
-        super(context,DATABASE_NAME, null, 1);
+        super(context,DATABASE_NAME, null,DATABASE_VERSION);
     }
 
 
-    private static final String SQL_CREATE_USER = "create table user (user_name_ text not null, user_pass text not null, guthaben int not null default 10);";
+    private static final String SQL_CREATE_USER = "create table "+TABLE_NAME+" (user_name_ text not null, user_pass text not null);";
 
-
+    //private static final String SQL_CREATE_USER1 = "create table user1 (user_name_1 text not null, user_pass1 text not null, guthaben1 int not null DEFAULT 10);";
     //final String SQL_CREATE_LISTING = "CREATE TABLE " + TABLE_LISTING + "(" + COLUMN_LISTING_NAME+ "TEXT PRIMARY KEY, "
     //        + COLUMN_LISTING_PREIS + "FLOAT)";
     @Override
     public void onCreate(SQLiteDatabase db) {
-
+        Log.i("oncreate", "will user erstellen");
         db.execSQL(SQL_CREATE_USER);
-        //db.execSQL(SQL_CREATE_LISTING);
+
         this.db = db;
+
 
     }
 
@@ -62,22 +64,7 @@ public class DatabaseHelper extends SQLiteOpenHelper{
         db.close();
     }
 
-    public int welchesGuthaben(String newString) {
-       db = this.getReadableDatabase();
-        String abfrage = "SELECT * FROM " + TABLE_NAME;
-        Cursor cursor = db.rawQuery(abfrage, null);
-        String a;
-        int guthaben=0;
-        if (cursor.moveToFirst()) {
-            do {
-                a = cursor.getString(0);
-                if (a.equals(newString)) {
-                    guthaben = cursor.getInt(2);
-                    break;
-                }
-            } while (cursor.moveToNext());
-        }return guthaben;
-    }
+
     public String suchePasswort(String str_name){
         db = this.getReadableDatabase();
         String abfrage ="SELECT * FROM "+ TABLE_NAME;
@@ -95,6 +82,28 @@ public class DatabaseHelper extends SQLiteOpenHelper{
         }return b;
     }
 
+    @Override
+    public void onUpgrade(SQLiteDatabase db, int oldVersion, int newVersion) {
+        //db.execSQL("DROP TABLE IF EXISTS "+ TABLE_NAME);
+        if(newVersion>oldVersion) {
+            Log.i("Neu", "Updatet Datenbank");
+            db.execSQL("ALTER TABLE user ADD COLUMN"+ COLUMN_GUTHABEN+" INTEGER DEFAULT 10");
+            db.execSQL("ALTER TABLE user ADD COLUMN"+ COLUMN_ARTIKEL+" TEXT");
+        }
+        onCreate(db);
+    }
+
+
+    public Cursor getAllData(){
+        db = this.getReadableDatabase();
+        Cursor res = db.rawQuery("select * FROM "+ TABLE_NAME, null);
+        return res;
+    }
+
+
+
+
+    //TODO AB HIER GEHT ES NICHT MEHR
     public void updateGuthabenDB(double guthaben,
                                  double preis,
                                  String benutzer_name){
@@ -109,15 +118,35 @@ public class DatabaseHelper extends SQLiteOpenHelper{
         db.update("slicko.db", values, this.COLUMN_NAME + "=" + benutzer_name,null);
 
 
-        
+
         db.close();
     }
 
-    @Override
-    public void onUpgrade(SQLiteDatabase db, int oldVersion, int newVersion) {
-        db.execSQL("DROP TABLE IF EXISTS "+ TABLE_NAME);
-        db.execSQL("DROP TABLE IF EXISTS "+ TABLE_LISTING);
+    public int sucheGuthaben(String newString) {
+        db = this.getReadableDatabase();
+        String abfrage = "SELECT * FROM " + TABLE_NAME;
+        Cursor cursor = db.rawQuery(abfrage, null);
+        String a;
+        int guthaben=5;
+        if (cursor.moveToFirst()) {
+            do {
+                a = cursor.getString(0);
+                if (a.equals(newString)) {
+                    guthaben = cursor.getInt(1);
+                    break;
+                }
+            } while (cursor.moveToNext());
+        }return guthaben;
+    }
 
-        onCreate(db);
+
+    public Cursor sucheKaufe(String string){
+        Log.i("suchekauf", "anfang methode");
+        //db = this.getReadableDatabase();
+        //Cursor res  = db.rawQuery("SELECT * FROM " +TABLE_NAME+";", null);
+        //return res;
+        db = this.getReadableDatabase();
+        Cursor res = db.rawQuery("select * FROM "+ TABLE_NAME, null);
+        return res;
     }
 }

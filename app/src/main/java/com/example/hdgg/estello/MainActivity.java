@@ -12,12 +12,7 @@ import android.widget.Toast;
 
 public class MainActivity extends AppCompatActivity {
 
-
-    //public static final String LOG_TAG = MainActivity.class.getSimpleName();
-
-
     DatabaseHelper helper = new DatabaseHelper(this);
-
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -43,7 +38,7 @@ public class MainActivity extends AppCompatActivity {
 
         if (str_pw.equals(passwortGeprueft)) {
             Intent i = new Intent(MainActivity.this, Profil.class);
-            i.putExtra("brauche_ich", str_name);
+            i.putExtra("user_name", str_name);
             startActivity(i);
         }
         else {

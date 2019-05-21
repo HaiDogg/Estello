@@ -18,6 +18,7 @@ import android.widget.Button;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import java.util.ArrayList;
 import java.util.List;
 
 public class Angebote extends AppCompatActivity {
@@ -27,36 +28,7 @@ public class Angebote extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_angebote);
-
-        // Hier wird der User Name rausgeholt und begrüßt
-        String newString;
-        if (savedInstanceState == null) {
-            Bundle extras = getIntent().getExtras();
-            if(extras == null) {
-                newString= null;
-            } else {
-                newString= getIntent().getStringExtra("brauche");
-            }
-        } else {
-            newString= (String) savedInstanceState.getSerializable("brauche");
-        }
-        //TODO funktion die über namen das guthaben aus der db holt
-       // holGuthaben(newString);
-        TextView tv_name = (TextView) findViewById(R.id.textView);
-        tv_name.setText("Die Angebote gibt es für dich, "+ newString );
-
-    }
-
-
-
-
-    public int holGuthaben(String newString){
-
-
-        int guthaben = helper.welchesGuthaben(newString);
-        TextView tv_guthaben = (TextView) findViewById(R.id.textView);
-        tv_guthaben.setText( "h"+ guthaben );
-        return guthaben;
+        greetMe();
     }
 
     //Funktion, mit der man zu der "Profil" Activity zurückkommt
@@ -129,13 +101,9 @@ public class Angebote extends AppCompatActivity {
         neues_guthaben = guthaben - preis;
         guthaben = neues_guthaben;
 
-        helper.updateGuthabenDB(guthaben, preis,name);
-
-
-        //ContentValues contentvalues = new ContentValues();
-        //contentvalues.put(DatabaseHelper.COLUMN_GUTHABEN, guthaben);
-        //openOrCreateDatabase().update(DatabaseHelper.COLUMN_GUTHABEN);
-        //db.update("slicko.db", contentvalues, "COLUMN_GUTHABEN = ?",new String[]{"1"});
+        ContentValues contentvalues = new ContentValues();
+        //SQLiteDatabase db = getDatabasePath(DatabaseHelper.COLUMN_NAME);
+        //db.update("slicko.db", contentvalues, "COLUMN_GUTHABEN = ?",new double[]{neues_guthaben});
         //
 
         //Datenbank updaten
@@ -150,4 +118,20 @@ public class Angebote extends AppCompatActivity {
         i.putExtra("kauf", kaufName);
         startActivity(i);
     }
+
+    public String greetMe(){
+        Bundle extras = getIntent().getExtras();
+        String newString = extras.getString("user_name");
+        TextView tv_name = (TextView) findViewById(R.id.textView);
+        try {
+            int guthaben = helper.sucheGuthaben(newString);
+            //ruf methode guthaben mit dem namen auf
+
+            tv_name.setText("Die Angebote gibt es für dich, " + newString + "und das ist dein Guthaben:" + guthaben);
+        }catch(Exception e){
+            Log.d("Fehler", "Kein Guthaben in DB");
+        }
+        return newString;
+    }
+
 }

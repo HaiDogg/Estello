@@ -46,7 +46,7 @@ public class ErstelleAccount extends AppCompatActivity {
 
         //Intent zur Kategorien-Activity
         Intent i =new Intent(ErstelleAccount.this, Profil.class);
-        i.putExtra("brauche_ich", str_name);
+        i.putExtra("user_name", str_name);
         startActivity(i);
     }
 

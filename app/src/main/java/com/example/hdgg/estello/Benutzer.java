@@ -17,12 +17,10 @@ public Benutzer(){
         this.guthaben = guthaben;
 
     }
-
     //Benutzer Name
 
     public void setBenutzer_name(String benutzer_name){
     this.benutzer_name = benutzer_name;
-
     }
 
     public String getBenutzer_name(){
