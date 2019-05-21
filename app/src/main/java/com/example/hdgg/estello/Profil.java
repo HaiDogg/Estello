@@ -12,19 +12,19 @@ import org.w3c.dom.Text;
 
 public class Profil extends AppCompatActivity {
 
-    DatabaseHelper helper = new DatabaseHelper(this);
+    //DatabaseHelper helper = new DatabaseHelper(this);
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_profil);
         welcherName();
-        String newString;
-        newString= getIntent().getStringExtra("brauche");
+
+        /**String newString;
+        newString= welcherName();
         int guthaben = helper.welchesGuthaben(newString);
 
         TextView tv_name = (TextView) findViewById(R.id.guthaben_id);
-
         tv_name.setText(String.valueOf(guthaben));
-
+        **/
     }
 
 
