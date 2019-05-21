@@ -11,11 +11,23 @@ import org.w3c.dom.Text;
 
 
 public class Profil extends AppCompatActivity {
+
+    DatabaseHelper helper = new DatabaseHelper(this);
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_profil);
         welcherName();
+        String newString;
+        newString= getIntent().getStringExtra("brauche");
+        int guthaben = helper.welchesGuthaben(newString);
+
+        TextView tv_name = (TextView) findViewById(R.id.guthaben_id);
+
+        tv_name.setText(String.valueOf(guthaben));
+
     }
+
+
 
     public void gehZuAngebote(final View view){
 
@@ -31,6 +43,7 @@ public class Profil extends AppCompatActivity {
         zeigNamean(newString);
         return newString;
     }
+
 
 
     public void zeigKaufean(String kauf){

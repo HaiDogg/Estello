@@ -109,7 +109,7 @@ public class DatabaseHelper extends SQLiteOpenHelper{
         db.update("slicko.db", values, this.COLUMN_NAME + "=" + benutzer_name,null);
 
 
-        
+
         db.close();
     }
 
