@@ -29,6 +29,7 @@ public class Angebote extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_angebote);
         greetMe();
+
     }
 
     //Funktion, mit der man zu der "Profil" Activity zurückkommt
@@ -125,13 +126,13 @@ public class Angebote extends AppCompatActivity {
         TextView tv_name = (TextView) findViewById(R.id.textView);
         try {
             int guthaben = helper.sucheGuthaben(newString);
-            //ruf methode guthaben mit dem namen auf
-
-            tv_name.setText("Die Angebote gibt es für dich, " + newString + "und das ist dein Guthaben:" + guthaben);
+            tv_name.setText("Die Angebote gibt es für dich, " + newString + " und das ist dein Guthaben: " + guthaben + " Euro");
         }catch(Exception e){
             Log.d("Fehler", "Kein Guthaben in DB");
         }
         return newString;
     }
+
+
 
 }

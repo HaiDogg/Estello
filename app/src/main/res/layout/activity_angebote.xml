@@ -104,10 +104,11 @@
                     android:textStyle="bold"/>
 
             <TextView
-                android:text="@string/netflixPreis"
+                android:id="@+id/netflix_preis"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center_vertical"
+                android:text="@string/netflixPreis"
                 android:textAlignment="center"
                 android:textColor="@android:color/black"
                 android:textSize="12sp"
@@ -181,10 +182,11 @@
                     android:textStyle="bold" />
 
                 <TextView
-                    android:text="@string/spotifyPreis"
+                    android:id="@+id/spotify_preis"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_gravity="center_vertical"
+                    android:text="@string/spotifyPreis"
                     android:textAlignment="center"
                     android:textColor="@android:color/black"
                     android:textSize="12sp"
@@ -259,10 +261,11 @@
                     android:textStyle="bold"/>
 
                 <TextView
-                    android:text="@string/mcfitPreis"
+                    android:id="@+id/mcfit_preis"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_gravity="center_vertical"
+                    android:text="@string/mcfitPreis"
                     android:textAlignment="center"
                     android:textColor="@android:color/black"
                     android:textSize="12sp"

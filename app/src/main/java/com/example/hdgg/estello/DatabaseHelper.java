@@ -15,9 +15,6 @@ import java.util.List;
 
 public class DatabaseHelper extends SQLiteOpenHelper{
 
-
-    //Version, DBname, tablenames, columnnames
-
     public static final int DATABASE_VERSION = 2;
     public static final String DATABASE_NAME = "slicko.db";
 
@@ -28,31 +25,17 @@ public class DatabaseHelper extends SQLiteOpenHelper{
     public static final String COLUMN_GUTHABEN = "guthaben";
     public static final String COLUMN_ARTIKEL = "artikel";
 
-
-
-
-
-    //Objekt Datenbank
     SQLiteDatabase db;
 
     public DatabaseHelper(Context context){
         super(context,DATABASE_NAME, null,DATABASE_VERSION);
     }
-
-
     private static final String SQL_CREATE_USER = "create table "+TABLE_NAME+" (user_name_ text not null, user_pass text not null);";
 
-    //private static final String SQL_CREATE_USER1 = "create table user1 (user_name_1 text not null, user_pass1 text not null, guthaben1 int not null DEFAULT 10);";
-    //final String SQL_CREATE_LISTING = "CREATE TABLE " + TABLE_LISTING + "(" + COLUMN_LISTING_NAME+ "TEXT PRIMARY KEY, "
-    //        + COLUMN_LISTING_PREIS + "FLOAT)";
     @Override
     public void onCreate(SQLiteDatabase db) {
-        Log.i("oncreate", "will user erstellen");
         db.execSQL(SQL_CREATE_USER);
-
         this.db = db;
-
-
     }
 
     public void fuegKontaktEin(Benutzer b ){
@@ -104,6 +87,11 @@ public class DatabaseHelper extends SQLiteOpenHelper{
 
 
     //TODO AB HIER GEHT ES NICHT MEHR
+
+
+
+
+
     public void updateGuthabenDB(double guthaben,
                                  double preis,
                                  String benutzer_name){
@@ -132,19 +120,14 @@ public class DatabaseHelper extends SQLiteOpenHelper{
             do {
                 a = cursor.getString(0);
                 if (a.equals(newString)) {
-                    guthaben = cursor.getInt(1);
+                    guthaben = cursor.getInt(2);
                     break;
                 }
             } while (cursor.moveToNext());
         }return guthaben;
     }
 
-
     public Cursor sucheKaufe(String string){
-        Log.i("suchekauf", "anfang methode");
-        //db = this.getReadableDatabase();
-        //Cursor res  = db.rawQuery("SELECT * FROM " +TABLE_NAME+";", null);
-        //return res;
         db = this.getReadableDatabase();
         Cursor res = db.rawQuery("select * FROM "+ TABLE_NAME, null);
         return res;

@@ -24,6 +24,7 @@ public class Profil extends AppCompatActivity {
         btnviewall = (Button) findViewById(R.id.view_all);
         btnviewartikel = (Button) findViewById(R.id.kauf_anzeigen);
         welcherName();
+        showGuthaben();
     }
 
 
@@ -97,5 +98,17 @@ public class Profil extends AppCompatActivity {
         Intent i = new Intent(Profil.this, Angebote.class);
         i.putExtra("user_name", newString);
         startActivity(i);
+    }
+
+    public void showGuthaben(){
+        Bundle extras = getIntent().getExtras();
+        String newString = extras.getString("user_name");
+        TextView tv_guthaben = (TextView) findViewById(R.id.guthaben_id);
+        try {
+            int guthaben = helper.sucheGuthaben(newString);
+            tv_guthaben.setText(guthaben + " Euro");
+        }catch(Exception e){
+            Log.d("Fehler", "Kein Guthaben in DB");
+        }
     }
 }
