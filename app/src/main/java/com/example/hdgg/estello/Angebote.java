@@ -21,7 +21,7 @@ import android.widget.Toast;
 import java.util.ArrayList;
 import java.util.List;
 
-public class Angebote extends AppCompatActivity {
+public class Angebote extends AppCompatActivity{
 
     DatabaseHelper helper = new DatabaseHelper(this);
 
@@ -29,95 +29,130 @@ public class Angebote extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_angebote);
         greetMe();
-
     }
 
     //Funktion, mit der man zu der "Profil" Activity zurückkommt
-    public void meinProfil(final View view){
+    public void meinProfil(final View view) {
         Intent i = new Intent(Angebote.this, Profil.class);
         startActivity(i);
     }
 
-    /*
-    * Funktion, in der verglichen wird, ob der Kunde genug Guthaben hat, um den Artikel zu kaufen.
-    * Wenn dem so ist, wird er mit einem AlertDialog gefragt, ob er sich sicher ist, dass er den Artikel
-    * erwerben will. Wenn er sich sicher ist, wird die Funktion "machWasZuTunIst" aufgerufen, welche
-    * das Guthaben in der Datenbank updatet. Außerdem wird der Name des Artikels im Profil des Kunden
-    * im Bereich "Meine Käufe" angezeigt. Wenn er sich nicht sicher ist, kann er zurück zur Angebotsübersicht gehen.
-    * Wenn der Kunde nicht genügend Guthaben hat, hat er die Möglichkeit sich zu seinem Profil leiten
-    * zu lassen, wo er den Button "Guthaben aufladen" findet. Ansonsten kann er zurück zur Angebots-
-    * übersicht.
-    *
-    * */
 
-    public void kaufMich(final View view){
 
-        //guthaben von kunde geholt mit dem namen den wir übergeben kriegen
+    public void kaufNetflix(final View view){
+        Bundle extras = getIntent().getExtras();
+        String newString = extras.getString("user_name");
+        final int guthaben = helper.sucheGuthaben(newString);
 
-        final double guthaben=0;
-        final double preis=0;
-
-        if (guthaben >= preis){
-            String[] answers = {"yes", "no"};
-            AlertDialog.Builder builder = new AlertDialog.Builder(this);
-            builder.setTitle("Bist du dir sicher");
-            builder.setItems(answers, new DialogInterface.OnClickListener() {
-                @Override
-                public void onClick(DialogInterface dialog, int which) {
-                    // the user clicked on colors[which]
-                    if(which == 0){
-                        machWasZuTunIst(guthaben,preis, "Esti");
-                    }
-                    else{
-                        Intent i = new Intent(Angebote.this,Angebote.class);
-                        startActivity(i);
-                    }
-                }
-            });
-            builder.show();
+        TextView ntv = (TextView) findViewById(R.id.netflix_preis);
+        int netflixp = Integer.parseInt(ntv.getText().toString());
+        Log.i("kaufmich", "im ersten knopf");
+        if (guthaben >= netflixp) {
+            handle_rest(guthaben, netflixp);
         }else{
-            String[] answers = {"Guthaben Aufladen", "Zurück zu den Angeboten"};
-            AlertDialog.Builder builder = new AlertDialog.Builder(this);
-            builder.setTitle("Du hast nicht genung Geld");
-            builder.setItems(answers, new DialogInterface.OnClickListener() {
-                @Override
-                public void onClick(DialogInterface dialog, int which) {
-                    // the user clicked on colors[which]
-                    if (which ==0){
-                        Intent i = new Intent(Angebote.this, Profil.class);
-                        startActivity(i);
-                    }else{
-                        Intent i = new Intent(Angebote.this,Angebote.class);
-                        startActivity(i);
-                    }
-                }
-            });
-            builder.show();
+            planb();
+        }
+
+        }
+
+
+    public void kaufSpotify(final View view){
+        Bundle extras = getIntent().getExtras();
+        String newString = extras.getString("user_name");
+        final int guthaben = helper.sucheGuthaben(newString);
+
+        TextView stv = (TextView) findViewById(R.id.spotify_preis);
+        int spotifyp = Integer.parseInt(stv.getText().toString());
+        Log.i("kaufmich", "im zweiten knopf");
+        if (guthaben >= spotifyp) {
+            handle_rest(guthaben, spotifyp);
+        }else{
+            planb();
+        }
+}
+
+    public void kaufMcFit(final View view){
+
+        Bundle extras = getIntent().getExtras();
+        String newString = extras.getString("user_name");
+        final int guthaben = helper.sucheGuthaben(newString);
+
+        TextView mctv = (TextView) findViewById(R.id.mcfit_preis);
+        int mcfitp = Integer.parseInt(mctv.getText().toString());
+        Log.i("kaufmich", "im dritten knopf");
+        if (guthaben >= mcfitp) {
+            handle_rest(guthaben, mcfitp);
+        }else{
+            Log.i("kaufmcfit","plan b");
+            planb();
+        }
+
     }
+
+
+    public void planb(){
+        String[] answers = {"Guthaben Aufladen", "Zurück zu den Angeboten"};
+        AlertDialog.Builder builder = new AlertDialog.Builder(this);
+        builder.setTitle("Du hast nicht genung Geld");
+        builder.setItems(answers, new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+                // the user clicked on colors[which]
+                if (which == 0) {
+                    //leiteProfil();
+                    dialog.dismiss();
+                } else {
+                    dialog.dismiss();
+                }
+            }
+        });
+        builder.show();
+    }
+
+    public void leiteProfil(){
+        Intent i = new Intent(Angebote.this, Profil.class);
+        startActivity(i);
+    }
+
+    public void handle_rest(final int guthaben, final int preis) {
+        Log.i("handle rest", "vor antworten");
+        String[] answers = {"yes", "no"};
+        AlertDialog.Builder builder = new AlertDialog.Builder(this);
+        builder.setTitle("Bist du dir sicher");
+        builder.setItems(answers, new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+                // the user clicked on colors[which]
+                if (which == 0) {
+                    Log.i("handlerest","vor intent");
+                    Bundle extras = getIntent().getExtras();
+                    String newString = extras.getString("user_name");
+                    Log.i("handlerest","vor machwaszutunist");
+                    machWasZuTunIst(guthaben, preis, newString);
+                } else {
+                   dialog.dismiss();
+                }
+            }
+        });
+        builder.show();
 }
 
     //Funktion, die das Guthaben in der Datenbank updatet.
-    public void machWasZuTunIst(double guthaben, double preis, String name){
-        double neues_guthaben = 0;
-        neues_guthaben = guthaben - preis;
-        guthaben = neues_guthaben;
-
-        ContentValues contentvalues = new ContentValues();
-        //SQLiteDatabase db = getDatabasePath(DatabaseHelper.COLUMN_NAME);
-        //db.update("slicko.db", contentvalues, "COLUMN_GUTHABEN = ?",new double[]{neues_guthaben});
-        //
-
-        //Datenbank updaten
-        //helper.updateGuthabenDB(guthaben, benutzer_name);
-        TextView angebot_name = (TextView) findViewById(R.id.angebote);//nochmal strings für die Angebote einfuegen
-        String a_name = angebot_name.getText().toString();
-
-       // profil.updateListe(a_name);
-        // intent mit dem der name vom kauf übergeben wird.
-        String kaufName = "Netflix";
-        Intent i = new Intent(Angebote.this, Profil.class);
-        i.putExtra("kauf", kaufName);
-        startActivity(i);
+    public void machWasZuTunIst(int guthaben, int preis, String name){
+        int neues_guthaben = guthaben - preis;
+        String name1 = "'"+ name + "'";
+        Log.i("machwaszutun ist",name1);
+        helper.updateGuthabenDB(neues_guthaben, name1);
+        String kauf;
+        if(preis==10){
+          kauf="'Netflix'";
+        }if(preis==5){
+            kauf="'Spotify'";
+        }else{
+            kauf="'Mcfit'";
+        }
+        Log.i("machwaszutunist", "vorupdatekaufe");
+        helper.updateKaeufe(name1, kauf);
     }
 
     public String greetMe(){

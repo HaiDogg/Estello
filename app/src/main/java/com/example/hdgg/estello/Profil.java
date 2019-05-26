@@ -52,7 +52,7 @@ public class Profil extends AppCompatActivity {
                            buffer.append("Name: " + res.getString(0) );
                            buffer.append("Passwort: " + res.getString(1) );
                            buffer.append("Guthaben: " + res.getString(2) );
-                            buffer.append("Artikel : " + res.getString(3) );
+                            buffer.append(helper.COLUMN_ARTIKEL + res.getString(3) );
                         }
                         //Show all data
                         showMessage("Data", buffer.toString());

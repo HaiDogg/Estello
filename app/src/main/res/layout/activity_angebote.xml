@@ -129,7 +129,7 @@
                 android:layout_height="wrap_content"
                 android:layout_gravity="center_vertical"
                 android:text="@string/kaufMich"
-                android:onClick="kaufMich"/>
+                android:onClick="kaufNetflix"/>
             </LinearLayout>
         </android.support.v7.widget.CardView>
 
@@ -206,7 +206,8 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_gravity="center_vertical"
-                    android:text="@string/kaufMich" />
+                    android:text="@string/kaufMich"
+                    android:onClick="kaufSpotify"/>
 
 
             </LinearLayout>
@@ -284,7 +285,8 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_gravity="center_vertical"
-                    android:text="@string/kaufMich" />
+                    android:text="@string/kaufMich"
+                    android:onClick="kaufMcFit"/>
 
 
             </LinearLayout>
