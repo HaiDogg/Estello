@@ -91,19 +91,13 @@ public class Angebote extends AppCompatActivity{
 
 
     public void planb(){
-        String[] answers = {"Guthaben Aufladen", "Zurück zu den Angeboten"};
+        String[] answers = {"Zurück zu den Angeboten"};
         AlertDialog.Builder builder = new AlertDialog.Builder(this);
         builder.setTitle("Du hast nicht genung Geld");
         builder.setItems(answers, new DialogInterface.OnClickListener() {
             @Override
-            public void onClick(DialogInterface dialog, int which) {
-                // the user clicked on colors[which]
-                if (which == 0) {
-                    //leiteProfil();
-                    dialog.dismiss();
-                } else {
-                    dialog.dismiss();
-                }
+            public void onClick(DialogInterface dialog,int which) {
+                dialog.dismiss();
             }
         });
         builder.show();
@@ -146,7 +140,7 @@ public class Angebote extends AppCompatActivity{
         String kauf;
         if(preis==10){
           kauf="'Netflix'";
-        }if(preis==5){
+        }if(preis==1){
             kauf="'Spotify'";
         }else{
             kauf="'Mcfit'";

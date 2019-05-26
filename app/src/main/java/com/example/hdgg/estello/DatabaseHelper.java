@@ -15,7 +15,7 @@ import java.util.List;
 
 public class DatabaseHelper extends SQLiteOpenHelper{
 
-    public static final int DATABASE_VERSION = 2;
+    public static final int DATABASE_VERSION = 3;
     public static final String DATABASE_NAME = "slicko.db";
 
 
@@ -25,12 +25,13 @@ public class DatabaseHelper extends SQLiteOpenHelper{
     public static final String COLUMN_GUTHABEN = "guthaben";
     public static final String COLUMN_ARTIKEL = "artikel";
 
+
     SQLiteDatabase db;
 
     public DatabaseHelper(Context context){
         super(context,DATABASE_NAME, null,DATABASE_VERSION);
     }
-    private static final String SQL_CREATE_USER = "create table "+TABLE_NAME+" (user_name_ text not null, user_pass text not null);";
+    private static final String SQL_CREATE_USER = "create table "+TABLE_NAME+" (user_name_ text not null, user_pass text not null, guthaben INTEGER DEFAULT 10, artikel TEXT );";
 
     @Override
     public void onCreate(SQLiteDatabase db) {
@@ -67,11 +68,11 @@ public class DatabaseHelper extends SQLiteOpenHelper{
 
     @Override
     public void onUpgrade(SQLiteDatabase db, int oldVersion, int newVersion) {
-        //db.execSQL("DROP TABLE IF EXISTS "+ TABLE_NAME);
+        db.execSQL("DROP TABLE IF EXISTS "+ TABLE_NAME);
         if(newVersion>oldVersion) {
             Log.i("Neu", "Updatet Datenbank");
-            db.execSQL("ALTER TABLE user ADD COLUMN"+ COLUMN_GUTHABEN+" INTEGER DEFAULT 10");
-            db.execSQL("ALTER TABLE user ADD COLUMN"+ COLUMN_ARTIKEL+" TEXT");
+            //db.execSQL("ALTER TABLE user ADD COLUMN"+ COLUMN_GUTHABEN+" INTEGER DEFAULT 10");
+            //db.execSQL("ALTER TABLE user ADD COLUMN"+ COLUMN_KAEUFE+" TEXT");
         }
         onCreate(db);
     }
@@ -93,7 +94,10 @@ public class DatabaseHelper extends SQLiteOpenHelper{
 
     public void updateKaeufe( String benutzer_name, String kauf) {
         db = this.getWritableDatabase();
-        String strSQL = "UPDATE " + TABLE_NAME+ " SET "+ COLUMN_ARTIKEL+ " = "+kauf+" WHERE "+ COLUMN_NAME+" = "+ benutzer_name+";";
+        String strabfrage= "SELECT "+ COLUMN_ARTIKEL+" from "+ TABLE_NAME+" where "+COLUMN_NAME+" = " + benutzer_name;
+        Cursor res = db.rawQuery(strabfrage, null);
+        String bishar = res.getString(0);
+        String strSQL = "UPDATE " + TABLE_NAME+ " SET "+ COLUMN_ARTIKEL+ "  = " +bishar + " ," + kauf+" WHERE "+ COLUMN_NAME+" = "+ benutzer_name;
         db.execSQL(strSQL);
         db.close();
     }
