@@ -75,8 +75,10 @@ public class Profil extends AppCompatActivity {
                 new View.OnClickListener(){
                     public void onClick(View v) {
                         //ruf funk in helper auf
+                        Bundle extras = getIntent().getExtras();
+                        String name = extras.getString("user_name");
+                        name = "'"+name+"'";
 
-                            String name = "'e2'";
                             Cursor res = helper.sucheKaufe(name);
 
                             StringBuffer buffer = new StringBuffer();
@@ -84,7 +86,6 @@ public class Profil extends AppCompatActivity {
                             buffer.append(res.getString(3));
                             String Artikel = buffer.toString();
                             TextView tv = (TextView) findViewById(R.id.kaufe_id);
-                            Log.i("zeigkaufan","esgeht");
                             tv.setText(Artikel);
                         }
                     }

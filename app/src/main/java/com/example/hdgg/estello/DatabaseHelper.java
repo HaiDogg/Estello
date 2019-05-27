@@ -94,11 +94,32 @@ public class DatabaseHelper extends SQLiteOpenHelper{
 
     public void updateKaeufe( String benutzer_name, String kauf) {
         db = this.getWritableDatabase();
-        String strabfrage= "SELECT "+ COLUMN_ARTIKEL+" from "+ TABLE_NAME+" where "+COLUMN_NAME+" = " + benutzer_name;
+        Log.i("updateKaufe","nach get writable");
+        String strabfrage= "SELECT * from "+ TABLE_NAME+" where "+COLUMN_NAME+" = " + benutzer_name;
+        Log.i("updateKaufe","nach abfrage");
         Cursor res = db.rawQuery(strabfrage, null);
-        String bishar = res.getString(0);
-        String strSQL = "UPDATE " + TABLE_NAME+ " SET "+ COLUMN_ARTIKEL+ "  = " +bishar + " ," + kauf+" WHERE "+ COLUMN_NAME+" = "+ benutzer_name;
+        Log.i("updateKaufe","nach raw query");
+        //wenn es schon was drin gibt dann ja sonst nein
+        String bishar ="";
+        String newarticles;
+        if(res.moveToFirst() && res.getCount() >= 1) {
+            do {
+                bishar = res.getString(3);
+
+            } while (res.moveToNext());
+        }
+            Log.i("updateKaufe","nach umwandlung in bishar");
+        if (bishar != null){
+            kauf = kauf.substring(1,kauf.length()-1);
+             newarticles = "'" + bishar + " , " + kauf +"'" ;
+        }else{
+            newarticles= kauf;
+        }
+
+        String strSQL = "UPDATE " + TABLE_NAME+ " SET "+ COLUMN_ARTIKEL+ "  = " +newarticles+" WHERE "+ COLUMN_NAME+" = "+ benutzer_name + ";";
+        Log.i("updateKaufe","vor exec");
         db.execSQL(strSQL);
+        Log.i("updateKaufe","nach exec");
         db.close();
     }
 
@@ -121,7 +142,7 @@ public class DatabaseHelper extends SQLiteOpenHelper{
 
     public Cursor sucheKaufe(String string){
         db = this.getReadableDatabase();
-        Cursor res = db.rawQuery("select * FROM "+ TABLE_NAME, null);
+        Cursor res = db.rawQuery("select * FROM "+ TABLE_NAME + " where "+ COLUMN_NAME +" = " + string, null);
         return res;
     }
 }
