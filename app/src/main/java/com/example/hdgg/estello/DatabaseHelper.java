@@ -77,13 +77,20 @@ public class DatabaseHelper extends SQLiteOpenHelper{
         onCreate(db);
     }
 
-
+/*
     public Cursor getAllData(){
         db = this.getReadableDatabase();
         Cursor res = db.rawQuery("select * FROM "+ TABLE_NAME, null);
         return res;
     }
+*/
 
+    public void laddbauf(String name, int neuesguthaben){
+        db = this.getWritableDatabase();
+        String strSQL = "UPDATE " + TABLE_NAME+ " SET "+ COLUMN_GUTHABEN+ " = "+neuesguthaben+" WHERE "+ COLUMN_NAME+" = "+ name;
+        db.execSQL(strSQL);
+        db.close();
+    }
 
     public void updateGuthabenDB(int neues_guthaben, String benutzer_name) {
         db = this.getWritableDatabase();

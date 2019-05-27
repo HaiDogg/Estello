@@ -7,7 +7,7 @@
 
 
     <TextView
-        android:id="@+id/profil_name_id"
+        android:id="@+id/frage_aufladen"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_centerInParent="true"
@@ -38,7 +38,7 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.976"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/profil_name_id"
+        app:layout_constraintTop_toBottomOf="@+id/frage_aufladen"
         app:layout_constraintVertical_bias="0.038" />
 
     <Button
@@ -50,6 +50,7 @@
         android:layout_marginEnd="8dp"
         android:layout_marginBottom="8dp"
         android:text="Aufladen"
+        android:onClick="aufladen"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
@@ -78,7 +79,7 @@
         android:layout_marginBottom="8dp"
         android:onClick="gehZuAngebote"
         android:text="geh zu angebote"
-        app:layout_constraintBottom_toTopOf="@+id/profil_name_id"
+        app:layout_constraintBottom_toTopOf="@+id/frage_aufladen"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.004"
         app:layout_constraintStart_toStartOf="parent"
@@ -110,25 +111,10 @@
         app:layout_constraintBottom_toTopOf="@+id/textView3"
         app:layout_constraintEnd_toStartOf="@+id/guthaben_id"
         app:layout_constraintHorizontal_bias="0.666"
-        app:layout_constraintStart_toStartOf="@+id/profil_name_id"
-        app:layout_constraintTop_toBottomOf="@+id/profil_name_id"
+        app:layout_constraintStart_toStartOf="@+id/frage_aufladen"
+        app:layout_constraintTop_toBottomOf="@+id/frage_aufladen"
         app:layout_constraintVertical_bias="0.538" />
-    
 
-    <Button
-        android:id="@+id/view_all"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="8dp"
-        android:layout_marginTop="8dp"
-        android:layout_marginEnd="8dp"
-        android:layout_marginBottom="8dp"
-        android:text="View All Data"
-        android:onClick="viewAlll"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/lad_mich_auf_id" />
 
     <Button
         android:id="@+id/kauf_anzeigen"
@@ -137,10 +123,8 @@
         android:layout_marginStart="163dp"
         android:layout_marginTop="28dp"
         android:layout_marginEnd="160dp"
-        android:layout_marginBottom="21dp"
-        android:text="Button"
         android:onClick="zeigKaufean"
-        app:layout_constraintBottom_toTopOf="@+id/view_all"
+        android:text="Zeig Käufe an"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/lad_mich_auf_id" />

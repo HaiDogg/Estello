@@ -3,25 +3,22 @@ package com.example.hdgg.estello;
 import android.content.Intent;
 import android.database.Cursor;
 import android.os.Bundle;
-import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
 
-import org.w3c.dom.Text;
-
 
 public class Profil extends AppCompatActivity {
 
-    Button btnviewall;
+    Button btnaufladen;
     Button btnviewartikel;
     DatabaseHelper helper = new DatabaseHelper(this);
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_profil);
-        btnviewall = (Button) findViewById(R.id.view_all);
+        btnaufladen = (Button) findViewById(R.id.lad_mich_auf_id);
         btnviewartikel = (Button) findViewById(R.id.kauf_anzeigen);
         welcherName();
         showGuthaben();
@@ -31,11 +28,11 @@ public class Profil extends AppCompatActivity {
     public String welcherName() {
         Bundle extras = getIntent().getExtras();
         String newString = extras.getString("user_name");
-        TextView tv_name = (TextView) findViewById(R.id.profil_name_id);
+        TextView tv_name = (TextView) findViewById(R.id.frage_aufladen);
         tv_name.setText("Hallo, "+ newString );
         return newString;
     }
-
+/*
     public void viewAlll(final View view){
         btnviewall.setOnClickListener(
                 new View.OnClickListener(){
@@ -68,7 +65,7 @@ public class Profil extends AppCompatActivity {
         builder.setMessage(message);
         builder.show();
     }
-
+*/
 
     public void zeigKaufean(final View view){
         btnviewartikel.setOnClickListener(
@@ -111,5 +108,12 @@ public class Profil extends AppCompatActivity {
         }catch(Exception e){
             Log.d("Fehler", "Kein Guthaben in DB");
         }
+    }
+
+    public void aufladen(final View view){
+        String newString = welcherName();
+        Intent i = new Intent(Profil.this, GuthabenAufladen.class);
+        i.putExtra("user_name", newString);
+        startActivity(i);
     }
 }

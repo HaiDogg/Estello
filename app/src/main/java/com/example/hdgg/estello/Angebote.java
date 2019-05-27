@@ -118,10 +118,8 @@ public class Angebote extends AppCompatActivity{
             public void onClick(DialogInterface dialog, int which) {
                 // the user clicked on colors[which]
                 if (which == 0) {
-                    Log.i("handlerest","vor intent");
                     Bundle extras = getIntent().getExtras();
                     String newString = extras.getString("user_name");
-                    Log.i("handlerest","vor machwaszutunist");
                     machWasZuTunIst(guthaben, preis, newString);
                 } else {
                    dialog.dismiss();
@@ -135,17 +133,22 @@ public class Angebote extends AppCompatActivity{
     public void machWasZuTunIst(int guthaben, int preis, String name){
         int neues_guthaben = guthaben - preis;
         String name1 = "'"+ name + "'";
-        Log.i("machwaszutun ist",name1);
         helper.updateGuthabenDB(neues_guthaben, name1);
         String kauf;
-        if(preis==10){
-          kauf="'Netflix'";
-        }if(preis==1){
+
+        TextView ntv = (TextView) findViewById(R.id.netflix_preis);
+        int netflixp = Integer.parseInt(ntv.getText().toString());
+
+        TextView stv = (TextView) findViewById(R.id.spotify_preis);
+        int spotifyp = Integer.parseInt(stv.getText().toString());
+
+        if(preis == netflixp){
+          kauf ="'Netflix'";
+        }if(preis == spotifyp){
             kauf="'Spotify'";
         }else{
-            kauf="'Mcfit'";
+            kauf = "'Mcfit'";
         }
-        Log.i("machwaszutunist", "vorupdatekaufe");
         helper.updateKaeufe(name1, kauf);
     }
 
