@@ -18,6 +18,7 @@
     <string name="mcfitPreis">20</string>
     <string name="mcfit">McFit</string>
     <string name="spotify">Spotify</string>
+    <string name="profilguthaben"></string>
     <string name="netflix">Netflix</string>
     <string name="title_activity_guthaben_aufladen">GuthabenAufladen</string>
 </resources>
