@@ -21,7 +21,7 @@ public class Profil extends AppCompatActivity {
         btnaufladen = (Button) findViewById(R.id.lad_mich_auf_id);
         btnviewartikel = (Button) findViewById(R.id.kauf_anzeigen);
         welcherName();
-        showGuthaben();
+        //showGuthaben();
     }
 
 
@@ -97,7 +97,7 @@ public class Profil extends AppCompatActivity {
         i.putExtra("user_name", newString);
         startActivity(i);
     }
-
+/*
     public void showGuthaben(){
         Bundle extras = getIntent().getExtras();
         String newString = extras.getString("user_name");
@@ -109,7 +109,7 @@ public class Profil extends AppCompatActivity {
             Log.d("Fehler", "Kein Guthaben in DB");
         }
     }
-
+*/
     public void aufladen(final View view){
         String newString = welcherName();
         Intent i = new Intent(Profil.this, GuthabenAufladen.class);

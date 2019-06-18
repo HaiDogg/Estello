@@ -16,24 +16,10 @@
             android:layout_width="match_parent"
             android:layout_height="250dp"
             android:background="?attr/selectableItemBackgroundBorderless"
-            android:scaleType="centerCrop"
-            app:srcCompat="@drawable/backgoundsliko" />
+            android:scaleType="centerCrop"></ImageView>
+            <!--android:scr="@drawable/backgroundsliko"
+            app:srcCompat="@drawable/backgoundsliko" />-->
 
-
-        <de.hdodenhof.circleimageview.CircleImageView
-
-            android:background="#ffffffff"
-            android:id="@+id/profile"
-            android:layout_width="160dp"
-            android:layout_height="160dp"
-            android:layout_below="@+id/header_cover_image"
-            android:layout_centerHorizontal="true"
-            android:layout_marginTop="-130dp"
-            android:layout_marginBottom="-15dp"
-            android:elevation="5dp"
-            android:padding="20dp"
-            android:scaleType="centerCrop"
-            app:srcCompat="@drawable/profilicon" />
 
         <RelativeLayout
             android:id="@+id/profile_layout"
@@ -101,23 +87,7 @@
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/lad_mich_auf_id" />
 
-            <TextView
-                android:id="@+id/textView5"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="Mein aktuelles Guthaben beträgt: "
-                android:layout_below="@id/kauf_anzeigen"
-                android:layout_centerHorizontal="true"
-                android:layout_marginTop="15dp"
-                />
 
-            <TextView
-                android:id="@+id/guthaben_id"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:layout_marginLeft="1dp"
-                android:layout_toRightOf="@id/textView5"
-                android:text="@string/profilguthaben" />
 
 
         </RelativeLayout>
@@ -137,15 +107,12 @@
 
         <ListView
             android:layout_width="match_parent"
-            android:layout_height="match_parent">
+            android:layout_height="match_parent"
+            android:layout_above="@+id/profile_layout"
+            android:layout_marginBottom="9dp">
 
 
         </ListView>
-
-
-
-
-
 
 
     </RelativeLayout>

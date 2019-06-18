@@ -34,17 +34,16 @@ public class GuthabenAufladen extends AppCompatActivity {
 
     public void ladAuf(final View view){
         Bundle extras = getIntent().getExtras();
-        String newString = extras.getString("user_name");
+        String name = extras.getString("user_name");
 
         //EditText tv = (EditText) findViewById(R.id.editText_aufladen) ;
         //String str_neuesguthaben = tv.getText().toString();
         int int_neuesguthaben;
         try {
-            Log.i("ladauf", "geht in try rein");
             EditText tv = (EditText) findViewById(R.id.editText_aufladen) ;
-            Log.i("ladauf", "tv gefunden");
             String str_neuesguthaben = tv.getText().toString();
-            Log.i("ladauf", "string wird gespeichert");
+
+            //frage wieso nicht geht
             int_neuesguthaben = Integer.parseInt(str_neuesguthaben,10);
         }catch(NumberFormatException e){
             int_neuesguthaben =0;
@@ -55,7 +54,7 @@ public class GuthabenAufladen extends AppCompatActivity {
             toast.show();
         }
 
-
+        String newString = "'" + name + "'";
         int aktuellesGuthaben=  helper.sucheGuthaben(newString);
 
         int neues_guthaben = aktuellesGuthaben + int_neuesguthaben;
