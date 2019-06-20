@@ -1,6 +1,7 @@
 package com.example.hdgg.estello;
 
 import android.content.Context;
+import android.database.Cursor;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
@@ -19,16 +20,14 @@ public class GuthabenAufladen extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_guthaben_aufladen);
-        Toolbar toolbar = findViewById(R.id.toolbar);
-        setSupportActionBar(toolbar);
-        FloatingActionButton fab = findViewById(R.id.fab);
+        /*FloatingActionButton fab = findViewById(R.id.fab);
         fab.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)
                         .setAction("Action", null).show();
             }
-        });
+        });*/
     }
 
 
@@ -36,15 +35,11 @@ public class GuthabenAufladen extends AppCompatActivity {
         Bundle extras = getIntent().getExtras();
         String name = extras.getString("user_name");
 
-        //EditText tv = (EditText) findViewById(R.id.editText_aufladen) ;
-        //String str_neuesguthaben = tv.getText().toString();
         int int_neuesguthaben;
         try {
             EditText tv = (EditText) findViewById(R.id.editText_aufladen) ;
             String str_neuesguthaben = tv.getText().toString();
-
-            //frage wieso nicht geht
-            int_neuesguthaben = Integer.parseInt(str_neuesguthaben,10);
+            int_neuesguthaben = Integer.parseInt(str_neuesguthaben);
         }catch(NumberFormatException e){
             int_neuesguthaben =0;
             Context context = getApplicationContext();
@@ -54,14 +49,16 @@ public class GuthabenAufladen extends AppCompatActivity {
             toast.show();
         }
 
-        String newString = "'" + name + "'";
-        int aktuellesGuthaben=  helper.sucheGuthaben(newString);
+        name = "'" + name + "'";
+        Cursor guthabenc = helper.sucheGuthaben(name);
 
-        int neues_guthaben = aktuellesGuthaben + int_neuesguthaben;
+        guthabenc.moveToFirst();
+        int guthaben = guthabenc.getInt(0);
+        int neues_guthaben = guthaben + int_neuesguthaben;
+        helper.laddbauf(name, neues_guthaben);
 
-        helper.laddbauf(newString, neues_guthaben);
-
-        Log.i("aufladen","ist durch");
+        TextView tv_neuesgutgaben = (TextView) findViewById(R.id.textView6);
+        tv_neuesgutgaben.setText(""+neues_guthaben);
     }
 
 }

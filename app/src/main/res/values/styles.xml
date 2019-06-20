@@ -6,6 +6,7 @@
         <item name="colorPrimary">#ff11afe5</item>
         <item name="colorPrimaryDark">#ff125c84</item>
         <item name="colorAccent">#ff11c4ff</item>
+
     </style>
 
     <style name="AppTheme.NoActionBar">

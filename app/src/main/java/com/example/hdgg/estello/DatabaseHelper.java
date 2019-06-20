@@ -5,17 +5,13 @@ import android.content.Context;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
-import android.util.Log;
-import android.widget.SimpleCursorAdapter;
 
-import java.sql.ResultSet;
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.List;
 
 public class DatabaseHelper extends SQLiteOpenHelper{
 
-    public static final int DATABASE_VERSION = 3;
+    public static final int DATABASE_VERSION = 4;
     public static final String DATABASE_NAME = "slicko.db";
 
 
@@ -25,17 +21,27 @@ public class DatabaseHelper extends SQLiteOpenHelper{
     public static final String COLUMN_GUTHABEN = "guthaben";
     public static final String COLUMN_ARTIKEL = "artikel";
 
+    public static final String TABLE_NAME_2 = "artikel";
+    public static final String COLUMN_ARTIKEL_NAME = "artikel_name";
+    public static final String COLUMN_ARTIKEL_PREIS = "artikel_preis";
+
+
 
     SQLiteDatabase db;
 
     public DatabaseHelper(Context context){
         super(context,DATABASE_NAME, null,DATABASE_VERSION);
     }
-    private static final String SQL_CREATE_USER = "create table "+TABLE_NAME+" (user_name_ text not null, user_pass text not null, guthaben INTEGER DEFAULT 10, artikel TEXT );";
+    private static final String SQL_CREATE_USER = "create table "+TABLE_NAME+" (user_name_ text not null, user_pass text not null,"+
+            " guthaben INTEGER DEFAULT 10, artikel TEXT );";
+
+    private static final String SQL_CREATE_ARTIKEL = "create table "+ TABLE_NAME_2 + " (artikel_name text not null,"+
+            " artikel_preis INTEGER);";
 
     @Override
     public void onCreate(SQLiteDatabase db) {
         db.execSQL(SQL_CREATE_USER);
+        db.execSQL(SQL_CREATE_ARTIKEL);
         this.db = db;
     }
 
@@ -57,33 +63,15 @@ public class DatabaseHelper extends SQLiteOpenHelper{
         b = "Nicht auffindbar";
         if (cursor.moveToFirst()){
             do{
-                a = cursor.getString(0); // Hier aufmerksam sein, ob das anders ist wegen fehlender ID , in letzten Programm 1 und 2
+                a = cursor.getString(0);
                 if(a.equals(str_name)){
-                    b = cursor.getString(1); // Same
+                    b = cursor.getString(1);
                     break;
                 }
             }while(cursor.moveToNext());
         }return b;
     }
 
-    @Override
-    public void onUpgrade(SQLiteDatabase db, int oldVersion, int newVersion) {
-        db.execSQL("DROP TABLE IF EXISTS "+ TABLE_NAME);
-        if(newVersion>oldVersion) {
-            Log.i("Neu", "Updatet Datenbank");
-            //db.execSQL("ALTER TABLE user ADD COLUMN"+ COLUMN_GUTHABEN+" INTEGER DEFAULT 10");
-            //db.execSQL("ALTER TABLE user ADD COLUMN"+ COLUMN_KAEUFE+" TEXT");
-        }
-        onCreate(db);
-    }
-
-/*
-    public Cursor getAllData(){
-        db = this.getReadableDatabase();
-        Cursor res = db.rawQuery("select * FROM "+ TABLE_NAME, null);
-        return res;
-    }
-*/
 
     public void laddbauf(String name, int neuesguthaben){
         db = this.getWritableDatabase();
@@ -101,12 +89,11 @@ public class DatabaseHelper extends SQLiteOpenHelper{
 
     public void updateKaeufe( String benutzer_name, String kauf) {
         db = this.getWritableDatabase();
-        Log.i("updateKaufe","nach get writable");
+
         String strabfrage= "SELECT * from "+ TABLE_NAME+" where "+COLUMN_NAME+" = " + benutzer_name;
-        Log.i("updateKaufe","nach abfrage");
+
         Cursor res = db.rawQuery(strabfrage, null);
-        Log.i("updateKaufe","nach raw query");
-        //wenn es schon was drin gibt dann ja sonst nein
+
         String bishar ="";
         String newarticles;
         if(res.moveToFirst() && res.getCount() >= 1) {
@@ -115,41 +102,84 @@ public class DatabaseHelper extends SQLiteOpenHelper{
 
             } while (res.moveToNext());
         }
-            Log.i("updateKaufe","nach umwandlung in bishar");
+
         if (bishar != null){
             kauf = kauf.substring(1,kauf.length()-1);
              newarticles = "'" + bishar + " , " + kauf +"'" ;
         }else{
             newarticles= kauf;
         }
-
         String strSQL = "UPDATE " + TABLE_NAME+ " SET "+ COLUMN_ARTIKEL+ "  = " +newarticles+" WHERE "+ COLUMN_NAME+" = "+ benutzer_name + ";";
-        Log.i("updateKaufe","vor exec");
         db.execSQL(strSQL);
-        Log.i("updateKaufe","nach exec");
         db.close();
     }
 
-    public int sucheGuthaben(String newString) {
+    public Cursor sucheGuthaben(String newString) {
         db = this.getReadableDatabase();
-        String abfrage = "SELECT * FROM " + TABLE_NAME;
-        Cursor cursor = db.rawQuery(abfrage, null);
-        String a;
-        int guthaben=5;
-        if (cursor.moveToFirst()) {
-            do {
-                a = cursor.getString(0);
-                if (a.equals(newString)) {
-                    guthaben = cursor.getInt(2);
-                    break;
-                }
-            } while (cursor.moveToNext());
-        }return guthaben;
+        Cursor res = db.rawQuery("select " +COLUMN_GUTHABEN + " FROM "+ TABLE_NAME + " where "+ COLUMN_NAME +" = " + newString, null);
+        return res;
     }
 
     public Cursor sucheKaufe(String string){
         db = this.getReadableDatabase();
         Cursor res = db.rawQuery("select * FROM "+ TABLE_NAME + " where "+ COLUMN_NAME +" = " + string, null);
         return res;
+    }
+
+
+
+    public void artikelErstellen(){
+        Artikel a1 = new Artikel("Netflix", 10);
+        addArtikel(a1);
+        Artikel a2 = new Artikel("Spotify", 5);
+        addArtikel(a2);
+        Artikel a3 = new Artikel("McFit", 20);
+        addArtikel(a3);
+    }
+
+    private void addArtikel(Artikel artikel){
+        db = this.getWritableDatabase();
+        ContentValues cv = new ContentValues();
+        cv.put(COLUMN_ARTIKEL_NAME,artikel.getArtikel_name());
+        cv.put(COLUMN_ARTIKEL_PREIS, artikel.getArtikel_preis());
+        db.insert(TABLE_NAME_2, null, cv);
+        db.close();
+    }
+
+
+    public List<Artikel> getAlleArtikel(){
+        List<Artikel> artikelList = new ArrayList<>();
+        db = getReadableDatabase();
+        Cursor c = db.rawQuery("select * from "+ TABLE_NAME_2, null);
+        if(c.moveToFirst()){
+            do{
+                Artikel artikel = new Artikel();
+                artikel.setArtikel_name(c.getString(c.getColumnIndex(COLUMN_ARTIKEL_NAME)));
+                artikel.setArtikel_preis(c.getInt(c.getColumnIndex(COLUMN_ARTIKEL_PREIS)));
+                artikelList.add(artikel);
+            }while(c.moveToNext());
+        }
+        c.close();
+        return artikelList;
+    }
+
+
+    public Cursor getAllData(){
+        db = this.getReadableDatabase();
+        Cursor res = db.rawQuery("select * FROM "+ TABLE_NAME_2, null);
+        return res;
+    }
+
+
+    @Override
+    public void onUpgrade(SQLiteDatabase db, int oldVersion, int newVersion) {
+        db.execSQL("DROP TABLE IF EXISTS "+ TABLE_NAME);
+        db.execSQL("DROP TABLE IF EXISTS "+ TABLE_NAME_2);
+        /*if(newVersion>oldVersion) {
+            Log.i("Neu", "Updatet Datenbank");
+            //db.execSQL("ALTER TABLE user ADD COLUMN"+ COLUMN_GUTHABEN+" INTEGER DEFAULT 10");
+            //db.execSQL("ALTER TABLE user ADD COLUMN"+ COLUMN_KAEUFE+" TEXT");
+        }*/
+        onCreate(db);
     }
 }

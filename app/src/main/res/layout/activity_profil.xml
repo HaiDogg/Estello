@@ -26,6 +26,7 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:layout_below="@+id/header_cover_image"
+            android:layout_marginTop="-134dp"
             android:background="#3F51B5"
             android:elevation="4dp"
             android:paddingBottom="24dp">
@@ -47,8 +48,8 @@
                 android:id="@+id/lad_mich_auf_id"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_centerHorizontal="true"
                 android:layout_below="@id/frage_aufladen"
+                android:layout_centerHorizontal="true"
                 android:layout_marginStart="8dp"
                 android:layout_marginTop="15dp"
                 android:layout_marginEnd="8dp"
@@ -60,13 +61,13 @@
                 android:id="@+id/angebote"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_toLeftOf="@id/lad_mich_auf_id"
                 android:layout_below="@id/frage_aufladen"
                 android:layout_marginStart="8dp"
                 android:layout_marginLeft="99dp"
                 android:layout_marginTop="15dp"
                 android:layout_marginEnd="8dp"
                 android:layout_marginBottom="8dp"
+                android:layout_toLeftOf="@id/lad_mich_auf_id"
                 android:onClick="gehZuAngebote"
                 android:text="geh zu angebote" />
 
@@ -74,45 +75,60 @@
                 android:id="@+id/kauf_anzeigen"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_toRightOf="@id/lad_mich_auf_id"
                 android:layout_below="@id/frage_aufladen"
                 android:layout_marginStart="8dp"
                 android:layout_marginLeft="99dp"
                 android:layout_marginTop="15dp"
                 android:layout_marginEnd="8dp"
                 android:layout_marginBottom="8dp"
+                android:layout_toRightOf="@id/lad_mich_auf_id"
                 android:onClick="zeigKaufean"
-                android:text="Zeig Käufe an"
+                android:text="Zeig meine Käufe an"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/lad_mich_auf_id" />
 
 
+            <TextView
+                android:id="@+id/kaufe_id"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_below="@+id/lad_mich_auf_id"
+                android:layout_alignParentEnd="true"
+                android:layout_alignParentBottom="true"
+                android:layout_marginStart="8dp"
+                android:layout_marginTop="12dp"
+                android:layout_marginEnd="8dp"
+                android:layout_marginBottom="172dp"
+                android:text=""
+                android:textColor="@android:color/black"
+                android:textSize="20sp" />
 
 
         </RelativeLayout>
 
 
-        <TextView
-            android:id="@+id/kaufe_id"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:layout_marginStart="8dp"
-            android:layout_marginTop="8dp"
-            android:layout_marginEnd="8dp"
-            android:layout_marginBottom="8dp"
-            android:text="Meine Käufe"
-            android:textColor="@android:color/black"
-            android:textSize="20sp" />
-
         <ListView
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:layout_above="@+id/profile_layout"
-            android:layout_marginBottom="9dp">
+            android:layout_marginBottom="-5dp">
 
 
         </ListView>
+
+        <TextView
+            android:id="@+id/textView3"
+            android:layout_width="409dp"
+            android:layout_height="0dp"
+            android:layout_above="@+id/profile_layout"
+            android:layout_alignTop="@+id/header_cover_image"
+            android:layout_alignParentEnd="true"
+            android:layout_marginTop="0dp"
+            android:layout_marginEnd="0dp"
+            android:layout_marginBottom="116dp"
+            android:textSize="62dp"
+            android:text="" />
 
 
     </RelativeLayout>
