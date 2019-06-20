@@ -135,7 +135,7 @@ public class Angebote extends AppCompatActivity{
         if(res.moveToFirst()) {
             buffer.append(res.getString(3));
             String Artikel = buffer.toString();
-            if(Artikel.contains("McFit")){
+            if(Artikel.contains("Mcfit")){
                 artikelvorhanden();
             }else{
                 Cursor guthabenc = helper.sucheGuthaben(newString);
