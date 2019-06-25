@@ -5,9 +5,15 @@ import android.content.Context;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
+import android.util.Log;
 
+import java.security.NoSuchAlgorithmException;
+import java.security.spec.InvalidKeySpecException;
 import java.util.ArrayList;
 import java.util.List;
+
+import javax.crypto.SecretKeyFactory;
+import javax.crypto.spec.PBEKeySpec;
 
 public class DatabaseHelper extends SQLiteOpenHelper{
 
@@ -57,6 +63,7 @@ public class DatabaseHelper extends SQLiteOpenHelper{
 
     public String suchePasswort(String str_name){
         db = this.getReadableDatabase();
+
         String abfrage ="SELECT * FROM "+ TABLE_NAME;
         Cursor cursor= db.rawQuery(abfrage, null);
         String a, b;
@@ -71,6 +78,54 @@ public class DatabaseHelper extends SQLiteOpenHelper{
             }while(cursor.moveToNext());
         }return b;
     }
+
+    /**public String erstellePasswort(String passwort){
+
+        MessageDigest md ;
+
+        try {
+            md = MessageDigest.getInstance("MD5");
+            md.update(passwort.getBytes(Charset.forName("US-ASCII")),0,passwort.length());
+            byte[] magnitude = md.digest();
+            BigInteger bi = new BigInteger(1, magnitude);
+            String hash = String.format("%0" + (magnitude.length << 1) + "x", bi);
+            return hash;
+
+        }
+        catch (java.security.NoSuchAlgorithmException e)
+        {
+            e.printStackTrace();
+        }
+        return null;
+
+        **/
+
+
+
+        public static String erstellePasswort(String password) throws NoSuchAlgorithmException,
+                InvalidKeySpecException {
+
+            byte[] salt = {0x01, 0x02, 0x03, 0x04, 0x05, 0x06, 0x07, 0x08, 0x09, 0xA};
+            char[] string2char = password.toCharArray();
+
+            String pwCharset = "ansi";
+            // Hash algorithms may be: sha1, md2, md5, etc.
+            String hashAlg = "sha1";
+            // The salt should be 8 bytes:
+            String saltHex = "78578E5A5D63CB06";
+            int iterationCount = 2048;
+            // Derive a 192-bit key from the password.
+            int outputBitLen = 192;
+            PBEKeySpec PBEks = new PBEKeySpec(string2char, salt, iterationCount, outputBitLen);
+            // definieren hier die pseudozufällige Hash Funktion; können auch eine andere nehmen
+            // bspw. PBKDF2WithHmacSHA512
+            SecretKeyFactory skf = SecretKeyFactory.getInstance("PBKDF2WithHmacSHA1");
+            password = skf.toString();
+            return password;
+
+
+
+        }
 
 
     public void laddbauf(String name, int neuesguthaben){

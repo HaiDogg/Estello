@@ -6,6 +6,12 @@ import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 import android.widget.EditText;
 
+import java.math.BigInteger;
+import java.nio.charset.Charset;
+import java.security.MessageDigest;
+import java.security.NoSuchAlgorithmException;
+import java.security.spec.InvalidKeySpecException;
+
 public class ErstelleAccount extends AppCompatActivity {
 
     protected void onCreate(Bundle savedInstanceState) {
@@ -29,7 +35,7 @@ public class ErstelleAccount extends AppCompatActivity {
      * @see <code> fuegKontaktEin()</code>
      * @param view
      */
-    public void machRichtigenAccount(final View view){
+    public void machRichtigenAccount(final View view) throws InvalidKeySpecException, NoSuchAlgorithmException {
         EditText userName = (EditText) findViewById(R.id.benutzername_neu);
         EditText userPasswort = (EditText) findViewById(R.id.benutzerpasswort_neu);
 
@@ -39,7 +45,7 @@ public class ErstelleAccount extends AppCompatActivity {
         //Objekt Kontakt erstellen
         Benutzer b = new Benutzer();
         b.setBenutzer_name(str_name);
-        b.setBenutzer_pw(userPasswortNeu);
+        b.setBenutzer_pw(helper.erstellePasswort(userPasswortNeu));
 
         //Methode soll eingefügt werden
         helper.fuegKontaktEin( b );
@@ -49,6 +55,7 @@ public class ErstelleAccount extends AppCompatActivity {
         i.putExtra("user_name", str_name);
         startActivity(i);
     }
+
 
 
 }

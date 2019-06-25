@@ -9,6 +9,9 @@ import android.view.View;
 import android.widget.EditText;
 import android.widget.Toast;
 
+import java.security.NoSuchAlgorithmException;
+import java.security.spec.InvalidKeySpecException;
+
 
 public class MainActivity extends AppCompatActivity {
 
@@ -26,14 +29,14 @@ public class MainActivity extends AppCompatActivity {
     /*Funktion, die prüft, ob der Benutzer schon existiert und wenn dem so ist, das Passwort prüft.
     Wenn das Passwort stimmt, wird der Benutzer zu der "Angebote" Activity gefürt, ansonsten wird
     der Toast ausgegeben, dass die Login Daten nicht stimmen */
-    public void darfstDurch(final View view){
+    public void darfstDurch(final View view) throws InvalidKeySpecException, NoSuchAlgorithmException {
 
         EditText name = (EditText) findViewById(R.id.name_text);
         String str_name = name.getText().toString();
 
         EditText pass = (EditText) findViewById(R.id.pass_text);
 
-        String str_pw = pass.getText().toString();
+        String str_pw = helper.erstellePasswort(pass.getText().toString());
         String passwortGeprueft = helper.suchePasswort(str_name);
 
         if (str_pw.equals(passwortGeprueft)) {
