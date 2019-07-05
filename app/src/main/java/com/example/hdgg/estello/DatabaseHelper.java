@@ -5,15 +5,13 @@ import android.content.Context;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
-import android.util.Log;
 
+import java.nio.charset.StandardCharsets;
+import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
 import java.security.spec.InvalidKeySpecException;
 import java.util.ArrayList;
 import java.util.List;
-
-import javax.crypto.SecretKeyFactory;
-import javax.crypto.spec.PBEKeySpec;
 
 public class DatabaseHelper extends SQLiteOpenHelper{
 
@@ -126,23 +124,21 @@ public class DatabaseHelper extends SQLiteOpenHelper{
     public static String erstellePasswort(String password) throws NoSuchAlgorithmException,
                 InvalidKeySpecException {
 
-            byte[] salt = {0x01, 0x02, 0x03, 0x04, 0x05, 0x06, 0x07, 0x08, 0x09, 0xA};
-            char[] string2char = password.toCharArray();
 
-            String pwCharset = "ansi";
-            // Hash algorithms may be: sha1, md2, md5, etc.
-            String hashAlg = "sha1";
-            // The salt should be 8 bytes:
-            String saltHex = "78578E5A5D63CB06";
-            int iterationCount = 2048;
-            // Derive a 192-bit key from the password.
-            int outputBitLen = 192;
-            PBEKeySpec PBEks = new PBEKeySpec(string2char, salt, iterationCount, outputBitLen);
-            // definieren hier die pseudozufällige Hash Funktion; können auch eine andere nehmen
-            // bspw. PBKDF2WithHmacSHA512
-            SecretKeyFactory skf = SecretKeyFactory.getInstance("PBKDF2WithHmacSHA1");
-            password = skf.toString();
-            Log.i("erstellePasswort",password);
+            try {
+                MessageDigest md = MessageDigest.getInstance("SHA-256");
+                byte[] hashInBytes = md.digest(password.getBytes(StandardCharsets.UTF_8));
+
+                // bytes to hex
+                StringBuilder sb = new StringBuilder();
+                for (byte b : hashInBytes) {
+                    sb.append(String.format("%02x", b));
+                    password = sb.toString();
+                }
+            }
+                catch(java.security.NoSuchAlgorithmException e){
+                    e.printStackTrace();
+                }
             return password;
 
         }
