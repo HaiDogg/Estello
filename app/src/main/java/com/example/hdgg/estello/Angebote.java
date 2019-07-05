@@ -18,7 +18,7 @@ public class Angebote extends AppCompatActivity{
     private List<Artikel> artikel_list;
 
 
-    /*
+    /**
      * Methode öffnet die Seite und ruft die Methode "getAlleArtikel" auf und speichert die
      * Artikel in "artikel_list". Wenn die Artikelliste leer ist, wird mit der Methode "artikelErstellen"
      * die Artikel erstellt und dann wird die Artikelliste mit "getAlleArtikel" beladen.
@@ -49,12 +49,16 @@ public class Angebote extends AppCompatActivity{
 
     }
 
+    /**
+     * Intent zu Seite Profil.
+     * @param view
+     */
     public void meinProfil(final View view) {
         Intent i = new Intent(Angebote.this, Profil.class);
         startActivity(i);
     }
 
-    /*
+    /**
      * Methode erstellt ein Bundle extras, um den Intent zu kriegen und deren Extras zu bekommen.
      * Ein neuer String wird erstellt, der über einen Schlüssel auf die Extras zugreifen kann.
      * Der String wird für Wiederverwendung zurückgegeben.
@@ -68,7 +72,7 @@ public class Angebote extends AppCompatActivity{
         return newString;
     }
 
-    /*
+    /**
      * Methode ruft den Namen des eingeloggten Benutzers auf und ruft damit die Methode "sucheKaufe"
      * auf. Diese werden in einem Cursor res gespeichert und es wird ein StringBuffer erstellt.
      * Dieser Buffer wird mit dem String aus der Käufe Spalte befüllt und dann wird verglichen, ob der
@@ -110,6 +114,17 @@ public class Angebote extends AppCompatActivity{
         }
         }
 
+    /**
+     * Methode ruft den Namen des eingeloggten Benutzers auf und ruft damit die Methode "sucheKaufe"
+     * auf. Diese werden in einem Cursor res gespeichert und es wird ein StringBuffer erstellt.
+     * Dieser Buffer wird mit dem String aus der Käufe Spalte befüllt und dann wird verglichen, ob der
+     * Artikel schon vorhanden ist. Wenn dem so ist, wird die Methode "artikelvorhanden" aufgerufen.
+     * Ansonsten wird die Methode "sucheGuthaben" aufgerufen, welche prüft, ob das Guthaben des Benutzers
+     * ausreichend ist. Wenn das Guthaben >= Preis vom Artikel ist, wird die Methode "handle_rest" auf-
+     * gerufen. Ansonsten wird "planb" aufgerufen.
+     *
+     * @pararm view
+     */
 
     public void kaufSpotify(final View view){
 
@@ -121,7 +136,6 @@ public class Angebote extends AppCompatActivity{
         if(res.moveToFirst()) {
             buffer.append(res.getString(3));
             String Artikel = buffer.toString();
-            Log.i("kauf", Artikel);
             if(Artikel.contains("Spotify")){
                 artikelvorhanden();
             }else{
@@ -132,7 +146,6 @@ public class Angebote extends AppCompatActivity{
 
                 TextView stv = (TextView) findViewById(R.id.spotify_preis);
                 int spotifyp = Integer.parseInt(stv.getText().toString());
-                Log.i("kaufmich", "im zweiten knopf");
                 if (guthaben >= spotifyp) {
                     handle_rest(guthaben, spotifyp);
                 }else{
@@ -141,6 +154,18 @@ public class Angebote extends AppCompatActivity{
             }
         }
 }
+
+    /**
+     * Methode ruft den Namen des eingeloggten Benutzers auf und ruft damit die Methode "sucheKaufe"
+     * auf. Diese werden in einem Cursor res gespeichert und es wird ein StringBuffer erstellt.
+     * Dieser Buffer wird mit dem String aus der Käufe Spalte befüllt und dann wird verglichen, ob der
+     * Artikel schon vorhanden ist. Wenn dem so ist, wird die Methode "artikelvorhanden" aufgerufen.
+     * Ansonsten wird die Methode "sucheGuthaben" aufgerufen, welche prüft, ob das Guthaben des Benutzers
+     * ausreichend ist. Wenn das Guthaben >= Preis vom Artikel ist, wird die Methode "handle_rest" auf-
+     * gerufen. Ansonsten wird "planb" aufgerufen.
+     *
+     * @pararm view
+     */
 
     public void kaufMcFit(final View view){
 
@@ -161,7 +186,6 @@ public class Angebote extends AppCompatActivity{
 
                 TextView stv = (TextView) findViewById(R.id.mcfit_preis);
                 int mcfitp = Integer.parseInt(stv.getText().toString());
-                Log.i("kaufmich", "im zweiten knopf");
                 if (guthaben >= mcfitp) {
                     handle_rest(guthaben, mcfitp);
                 }else{
@@ -173,7 +197,7 @@ public class Angebote extends AppCompatActivity{
     }
 
 
-    /*
+    /**
      * Diese Methode wird aufgerufen, wenn der User den Artikel bereits gekauft hat. Der Benutzer
      * hat nun die Möglichkeit zurück zu den Angeboten zu gehen und der Benutzer bekommt die Meldung,
      * dass er den Artikel schon erstanden hat. Dies wird mithilfe eines AlertDialogs verwirklicht.
@@ -193,7 +217,7 @@ public class Angebote extends AppCompatActivity{
         builder.show();
     }
 
-    /*
+    /**
      * Diese Methode wird aufgerufen, wenn der User nicht genug Geld hat den Artikel zu kaufen.
      * Der Benutzer hat nun die Möglichkeit zurück zu den Angeboten zu gehen und der Benutzer bekommt
      * die Meldung,dass er nicht genug Geld hat. Dies wird mithilfe eines AlertDialogs
@@ -214,29 +238,25 @@ public class Angebote extends AppCompatActivity{
         builder.show();
     }
 
-    public void leiteProfil(){
-        Intent i = new Intent(Angebote.this, Profil.class);
-        startActivity(i);
-    }
 
-    /*
+    /**
      * Diese Methode wird aufgerufen, wenn der Benutzer den Artikel noch nicht gekauft hat und
-     * noch
-     *
+     * genug Geld für den Artikel hat. Der Benutzer wird gefragt, ob er sich sicher ist, dass er
+     * den Artikel erwerben möchte. Wenn der Benutzer mit "Ja" antwortet, wird die Methode "machWasZuTunIst"
+     * aufgerufen. Ansonsten kommt der Benutzer zurück auf die Angebots-Seite.
      *
      * @param guthaben
      * @param preis
      */
     public void handle_rest(final int guthaben, final int preis) {
-        String[] answers = {"yes", "no"};
+        String[] answers = {"Ja", "Nein"};
         AlertDialog.Builder builder = new AlertDialog.Builder(this);
         builder.setTitle("Bist du dir sicher");
         builder.setItems(answers, new DialogInterface.OnClickListener() {
             @Override
             public void onClick(DialogInterface dialog, int which) {
                 if (which == 0) {
-                    Bundle extras = getIntent().getExtras();
-                    String newString = extras.getString("user_name");
+                    String newString = welcherName();
                     machWasZuTunIst(guthaben, preis, newString);
                 } else {
                    dialog.dismiss();
@@ -246,7 +266,15 @@ public class Angebote extends AppCompatActivity{
         builder.show();
 }
 
-    //Funktion, die das Guthaben in der Datenbank updatet.
+    /**
+     * Methode erstellt ein neues Guthaben, indem sie das alte Guthaben mit dem Preis des Artikels
+     * subtrahiert. Danach wird die Methode "updateGuthaben" aufgerufen und die Variable kauf befüllt,
+     * welche mithilfe des Preises den Artikel bestimmt und dann die Funktion "updateKauefe" aufruft.
+     *
+     * @param guthaben
+     * @param preis
+     * @param name
+     */
     public void machWasZuTunIst(int guthaben, int preis, String name){
         int neues_guthaben = guthaben - preis;
         String name1 = "'"+ name + "'";
@@ -269,7 +297,7 @@ public class Angebote extends AppCompatActivity{
         helper.updateKaeufe(name1, kauf);
     }
 
-    /*
+    /**
      * Methode holt sich die Namen mithilfe von den Intent Extras und ruft dann die Methode
      * "sucheGuthaben" auf. Das Ergebnis wird in einem Cursor gespeichert und danach wird
      * das erste (und einzige) Ergebnis als int herausgefiltert und dann wird eine TextView

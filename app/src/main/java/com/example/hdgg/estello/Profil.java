@@ -23,7 +23,7 @@ public class Profil extends AppCompatActivity {
         welcherName();
     }
 
-    /*
+    /**
      * Methode erstellt ein Bundle extras, um den Intent zu kriegen und deren Extras zu bekommen.
      * Ein neuer String wird erstellt, der über einen Schlüssel auf die Extras zugreifen kann.
      * Danach wird mit einer Textview der Nutzer mit dem Namen begrüßt.
@@ -41,7 +41,7 @@ public class Profil extends AppCompatActivity {
     }
 
 
-    /*
+    /**
      * Methode sucht die bisherigen Käufe einer Person mithilfe des Namens, der mit der Methode
      * "welcherName" gefunden wird. Danach wird die Methode "sucheKauf" aufgerufen, und gibt die
      * Käufe als Cursor Objekt zurück. Danach wird ein neuer String Buffer erstellt und der Eintrag aus
@@ -71,7 +71,7 @@ public class Profil extends AppCompatActivity {
         );
     }
 
-    /*
+    /**
      * Methode, die mithilfe von Intent zu der "Angebote" Seite geht und den Namen übergibt mit Extras
      * @param view
      */
@@ -84,7 +84,7 @@ public class Profil extends AppCompatActivity {
         startActivity(i);
     }
 
-    /*
+    /**
      * Methode, die mithilfe von Intent zu der "GuthabenAufladen" Seite geht und den Namen übergibt mit Extras
      * @param view
      */

@@ -52,7 +52,7 @@ public class DatabaseHelper extends SQLiteOpenHelper{
     }
 
 
-    /*
+    /**
      * Die Methode bekommt den Benutzer b übergeben mithilfe von Contentvalues. Damit werden die einzelnen
      * Attribute in die jeweiligen Spalten eingefügt und in die Tabelle eingefügt. Nach dem Öffnen wird die
      * Datenbankanbindung wieder geschlossen.
@@ -69,7 +69,7 @@ public class DatabaseHelper extends SQLiteOpenHelper{
     }
 
 
-    /*
+    /**
      *Funktion fragt alle Einträge der Tabelle "user" ab und erstellt einen Cursor.
      *Es erstellt String a und b, wobei b auf "Nicht auffindbar" gesetzt wird und a jeweils den
      *Wert der ersten Spalte in der "user" Tabelle einnimmt. Sobald der Wert mit "str_name" übereinstimmt,
@@ -98,32 +98,19 @@ public class DatabaseHelper extends SQLiteOpenHelper{
         }return b;
     }
 
-    /**public String erstellePasswort(String passwort){
-
-        MessageDigest md ;
-
-        try {
-            md = MessageDigest.getInstance("MD5");
-            md.update(passwort.getBytes(Charset.forName("US-ASCII")),0,passwort.length());
-            byte[] magnitude = md.digest();
-            BigInteger bi = new BigInteger(1, magnitude);
-            String hash = String.format("%0" + (magnitude.length << 1) + "x", bi);
-            return hash;
-
-        }
-        catch (java.security.NoSuchAlgorithmException e)
-        {
-            e.printStackTrace();
-        }
-        return null;
-
-        **/
-
-
+    /**
+     * Methode übernimmt das eingegebene Passwort und speichert es nachdem die Hash-Funktion(digest())
+     * angewendet wurde in ein ByteArray. Anschließend wird noch ein Format festgelegt (in diesem Fall "%02x").
+     * Zuletzt wird das ByteArray wieder in einen String umgewandelt und zurückgegeben
+     *
+     * @param password
+     * @return password
+     * @throws NoSuchAlgorithmException
+     * @throws InvalidKeySpecException
+     */
 
     public static String erstellePasswort(String password) throws NoSuchAlgorithmException,
                 InvalidKeySpecException {
-
 
             try {
                 MessageDigest md = MessageDigest.getInstance("SHA-256");
@@ -143,13 +130,13 @@ public class DatabaseHelper extends SQLiteOpenHelper{
 
         }
 
+    /**
+     * Methode, die eine schreibbare Datenbank aufruft und dann ein Update SQL Statement auf der Datenbank ausführt.
+     * Dazu wird in der Zeile, wo der Benutzername dem übergebenen Namen entspricht, das neue Guthaben eingefügt.
 
-    public void laddbauf(String name, int neuesguthaben){
-        db = this.getWritableDatabase();
-        String strSQL = "UPDATE " + TABLE_NAME+ " SET "+ COLUMN_GUTHABEN+ " = "+neuesguthaben+" WHERE "+ COLUMN_NAME+" = "+ name;
-        db.execSQL(strSQL);
-        db.close();
-    }
+     * @param neues_guthaben
+     * @param benutzer_name
+     */
 
     public void updateGuthabenDB(int neues_guthaben, String benutzer_name) {
         db = this.getWritableDatabase();
@@ -158,7 +145,19 @@ public class DatabaseHelper extends SQLiteOpenHelper{
         db.close();
         }
 
-    public void updateKaeufe( String benutzer_name, String kauf) {
+
+        /**
+         * Methode öffnet eine schreibbare Datenbank und fragt alles von der Tabelle "user" ab,
+         * wo der Benutzername übereinstimmt. Danach wird ein leerer String erstellt, welcher
+         * mit dem Ergebnis von der letzten Spalte von der Stringabfrage befüllt wird.
+         * Wenn der String nicht leer ist, werden vom Kauf die Anführungszeichen mithilfe von
+         * der "substring" Funktion abgezogen und in der Variable "newarticles" vereint. Ansonsten
+         * wird die Variable nur auf den Kauf gesetzt (wenn es bisher noch keinen Kauf gab).
+         * Danach wird mit einem Update Statement die neuen Artikel eingefügt und die Datenbank
+         * geschlossen.
+         *
+         */
+    public void updateKaeufe(String benutzer_name, String kauf) {
         db = this.getWritableDatabase();
 
         String strabfrage= "SELECT * from "+ TABLE_NAME+" where "+COLUMN_NAME+" = " + benutzer_name;
@@ -174,7 +173,7 @@ public class DatabaseHelper extends SQLiteOpenHelper{
             } while (res.moveToNext());
         }
 
-        if (bishar != null){
+        if (bishar != ""){
             kauf = kauf.substring(1,kauf.length()-1);
              newarticles = "'" + bishar + " , " + kauf +"'" ;
         }else{
@@ -186,7 +185,7 @@ public class DatabaseHelper extends SQLiteOpenHelper{
         db.close();
     }
 
-    /*
+    /**
      * Methode kriegt eine lesbare Datenbank und führt eine SQL Query aus. Hierbei wird das Guthaben
      * aus der Tabelle user gezogen, wo der Name gleich dem übergebenen Namen ist.
      *
@@ -202,11 +201,11 @@ public class DatabaseHelper extends SQLiteOpenHelper{
         return res;
     }
 
-    /*
+    /**
      * Methode kriegt eine lesbare Datenbank und führt eine SQL Query aus. Hierbei werden die Käufe
      * aus der Tabelle user gezogen, wo der Name gleich dem übergebenen Namen ist.
      *
-     * @param newString
+     * @param string
      * @return res
      */
 
@@ -218,7 +217,7 @@ public class DatabaseHelper extends SQLiteOpenHelper{
     }
 
 
-    /*
+    /**
      * Methode  erstellt  Artikel indem es neue Objekte der Klasse Artikel erstellt und mit Werten füllt.
      * Mit diesen Objekten wird die Methode "addArtikel" aufgerufen.
      */
@@ -232,7 +231,7 @@ public class DatabaseHelper extends SQLiteOpenHelper{
         addArtikel(a3);
     }
 
-    /*
+    /**
      * Methode öffnet eine schreibbare Datenbank und erstellt ein Objekt cv von ContentValues.
      * Das Objekt benutzt die Methode put, um die jeweiligen Attribute in die Spalten einzutragen.
      * Danach wird das cv in die Datenbank eingefügt und danach geschlossen.
@@ -250,7 +249,7 @@ public class DatabaseHelper extends SQLiteOpenHelper{
         db.close();
     }
 
-    /*
+    /**
      * Methode erstellt eine Arraylist "artikellist" und öffnet eine lesbare Datenbank.
      * In den Cursor c wird das Ergebnis einer SQL Query gespeichert, welche alle Daten von der Tabelle
      * "artikel" enthält. Dann wird mithilfe einer Schleife jeweils der Name und der Preis aus der
@@ -278,12 +277,6 @@ public class DatabaseHelper extends SQLiteOpenHelper{
         return artikelList;
     }
 
-
-    public Cursor getAllData(){
-        db = this.getReadableDatabase();
-        Cursor res = db.rawQuery("select * FROM "+ TABLE_NAME_2, null);
-        return res;
-    }
 
 
     @Override

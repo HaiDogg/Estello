@@ -10,7 +10,7 @@ import android.widget.Toast;
 import java.security.NoSuchAlgorithmException;
 import java.security.spec.InvalidKeySpecException;
 
-/*
+/**
 @author Estelle Weinstock, Hai Do Le
 @version 1.0
 @since 2019-07-02
@@ -28,7 +28,7 @@ public class MainActivity extends AppCompatActivity {
 
 
 
-    /*
+    /**
 
     Funktion speichert den eingegeben Text aus der Anmeldung, ruft die "erstellePasswort"
     Methode mit dem Parameter "pass", welches das soeben gespeicherte Passwort ist.
@@ -68,7 +68,7 @@ public class MainActivity extends AppCompatActivity {
 
     }
 
-    /*
+    /**
 
     Funktion leitet auf Knopfdruck auf die "ErstelleAccount" Seite
     @param view

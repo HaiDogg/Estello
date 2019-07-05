@@ -3,7 +3,6 @@ package com.example.hdgg.estello;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
-import android.util.Log;
 import android.view.View;
 import android.widget.EditText;
 
@@ -45,18 +44,14 @@ public class ErstelleAccount extends AppCompatActivity {
         String str_name = userName.getText().toString();
         String userPasswortNeu= userPasswort.getText().toString();
 
-        //Objekt Kontakt erstellen
         Benutzer b = new Benutzer();
-        b.setBenutzer_name(str_name);
-        Log.i("marchrichtigenac","erstellt gleich pw");
         userPasswortNeu =helper.erstellePasswort(userPasswortNeu);
-        b.setBenutzer_pw(userPasswortNeu);
-        Log.i("marchrichtigenac",userPasswortNeu);
 
-        //Methode soll eingefügt werden
+        b.setBenutzer_name(str_name);
+        b.setBenutzer_pw(userPasswortNeu);
+
         helper.fuegKontaktEin( b );
 
-        //Intent zur Kategorien-Activity
         Intent i =new Intent(ErstelleAccount.this, Profil.class);
         i.putExtra("user_name", str_name);
         startActivity(i);
