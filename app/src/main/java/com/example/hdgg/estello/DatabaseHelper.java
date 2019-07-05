@@ -38,8 +38,10 @@ public class DatabaseHelper extends SQLiteOpenHelper{
     public DatabaseHelper(Context context){
         super(context,DATABASE_NAME, null,DATABASE_VERSION);
     }
-    private static final String SQL_CREATE_USER = "create table "+TABLE_NAME+" (user_name_ text not null, user_pass text not null,"+
-            " guthaben INTEGER DEFAULT 10, artikel TEXT );";
+
+
+    private static final String SQL_CREATE_USER = "create table "+TABLE_NAME+" (user_name_"+
+            " text not null, user_pass text not null, guthaben INTEGER DEFAULT 10, artikel text );";
 
     private static final String SQL_CREATE_ARTIKEL = "create table "+ TABLE_NAME_2 + " (artikel_name text not null,"+
             " artikel_preis INTEGER);";
@@ -51,6 +53,14 @@ public class DatabaseHelper extends SQLiteOpenHelper{
         this.db = db;
     }
 
+
+    /*
+     * Die Methode bekommt den Benutzer b übergeben mithilfe von Contentvalues. Damit werden die einzelnen
+     * Attribute in die jeweiligen Spalten eingefügt und in die Tabelle eingefügt. Nach dem Öffnen wird die
+     * Datenbankanbindung wieder geschlossen.
+     * @param b
+     */
+
     public void fuegKontaktEin(Benutzer b ){
         db = this.getWritableDatabase();
         ContentValues values = new ContentValues();
@@ -60,6 +70,17 @@ public class DatabaseHelper extends SQLiteOpenHelper{
         db.close();
     }
 
+
+    /*
+     *Funktion fragt alle Einträge der Tabelle "user" ab und erstellt einen Cursor.
+     *Es erstellt String a und b, wobei b auf "Nicht auffindbar" gesetzt wird und a jeweils den
+     *Wert der ersten Spalte in der "user" Tabelle einnimmt. Sobald der Wert mit "str_name" übereinstimmt,
+     *wird "b" mit dem Wert aus der zweiten Spalte in der gleichen Zeile überschrieben.
+     *Die Funktion gibt das b zurück
+     *
+     *@param str_name
+     *@return b
+     */
 
     public String suchePasswort(String str_name){
         db = this.getReadableDatabase();
@@ -102,7 +123,7 @@ public class DatabaseHelper extends SQLiteOpenHelper{
 
 
 
-        public static String erstellePasswort(String password) throws NoSuchAlgorithmException,
+    public static String erstellePasswort(String password) throws NoSuchAlgorithmException,
                 InvalidKeySpecException {
 
             byte[] salt = {0x01, 0x02, 0x03, 0x04, 0x05, 0x06, 0x07, 0x08, 0x09, 0xA};
@@ -121,9 +142,8 @@ public class DatabaseHelper extends SQLiteOpenHelper{
             // bspw. PBKDF2WithHmacSHA512
             SecretKeyFactory skf = SecretKeyFactory.getInstance("PBKDF2WithHmacSHA1");
             password = skf.toString();
+            Log.i("erstellePasswort",password);
             return password;
-
-
 
         }
 
@@ -164,24 +184,48 @@ public class DatabaseHelper extends SQLiteOpenHelper{
         }else{
             newarticles= kauf;
         }
-        String strSQL = "UPDATE " + TABLE_NAME+ " SET "+ COLUMN_ARTIKEL+ "  = " +newarticles+" WHERE "+ COLUMN_NAME+" = "+ benutzer_name + ";";
+        String strSQL = "UPDATE " + TABLE_NAME+ " SET "+ COLUMN_ARTIKEL+ "  = " +newarticles+" WHERE "+
+                COLUMN_NAME+" = "+ benutzer_name + ";";
         db.execSQL(strSQL);
         db.close();
     }
 
+    /*
+     * Methode kriegt eine lesbare Datenbank und führt eine SQL Query aus. Hierbei wird das Guthaben
+     * aus der Tabelle user gezogen, wo der Name gleich dem übergebenen Namen ist.
+     *
+     * @param newString
+     * @return res
+     */
+
     public Cursor sucheGuthaben(String newString) {
         db = this.getReadableDatabase();
-        Cursor res = db.rawQuery("select " +COLUMN_GUTHABEN + " FROM "+ TABLE_NAME + " where "+ COLUMN_NAME +" = " + newString, null);
+        Cursor res = db.rawQuery("select " +COLUMN_GUTHABEN + " FROM "+
+                TABLE_NAME + " where "+ COLUMN_NAME +
+                " = " + newString, null);
         return res;
     }
+
+    /*
+     * Methode kriegt eine lesbare Datenbank und führt eine SQL Query aus. Hierbei werden die Käufe
+     * aus der Tabelle user gezogen, wo der Name gleich dem übergebenen Namen ist.
+     *
+     * @param newString
+     * @return res
+     */
 
     public Cursor sucheKaufe(String string){
         db = this.getReadableDatabase();
-        Cursor res = db.rawQuery("select * FROM "+ TABLE_NAME + " where "+ COLUMN_NAME +" = " + string, null);
+        Cursor res = db.rawQuery("select * FROM "+ TABLE_NAME + " where "+ COLUMN_NAME +
+                " = " + string, null);
         return res;
     }
 
 
+    /*
+     * Methode  erstellt  Artikel indem es neue Objekte der Klasse Artikel erstellt und mit Werten füllt.
+     * Mit diesen Objekten wird die Methode "addArtikel" aufgerufen.
+     */
 
     public void artikelErstellen(){
         Artikel a1 = new Artikel("Netflix", 10);
@@ -192,6 +236,15 @@ public class DatabaseHelper extends SQLiteOpenHelper{
         addArtikel(a3);
     }
 
+    /*
+     * Methode öffnet eine schreibbare Datenbank und erstellt ein Objekt cv von ContentValues.
+     * Das Objekt benutzt die Methode put, um die jeweiligen Attribute in die Spalten einzutragen.
+     * Danach wird das cv in die Datenbank eingefügt und danach geschlossen.
+     *
+     * @param artikel
+     */
+
+
     private void addArtikel(Artikel artikel){
         db = this.getWritableDatabase();
         ContentValues cv = new ContentValues();
@@ -200,6 +253,17 @@ public class DatabaseHelper extends SQLiteOpenHelper{
         db.insert(TABLE_NAME_2, null, cv);
         db.close();
     }
+
+    /*
+     * Methode erstellt eine Arraylist "artikellist" und öffnet eine lesbare Datenbank.
+     * In den Cursor c wird das Ergebnis einer SQL Query gespeichert, welche alle Daten von der Tabelle
+     * "artikel" enthält. Dann wird mithilfe einer Schleife jeweils der Name und der Preis aus der
+     * jeweiligen Spalte gezogen und der ganze artikel zur Artikelliste hinzugefügt.
+     * Sobald alle Einträge eingespeichert sind, wird die Datenbank geschlossen und die Artikelliste
+     * zurückgegeben.
+     *
+     * @return artikelList
+     */
 
 
     public List<Artikel> getAlleArtikel(){

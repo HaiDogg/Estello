@@ -21,5 +21,6 @@
     <string name="profilguthaben"></string>
     <string name="netflix">Netflix</string>
     <string name="title_activity_guthaben_aufladen">GuthabenAufladen</string>
+    <string name="ok">OK</string>
 </resources>
 

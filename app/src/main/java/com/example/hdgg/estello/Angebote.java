@@ -8,7 +8,6 @@ import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.view.View;
-import android.widget.Button;
 import android.widget.TextView;
 
 import java.util.List;
@@ -19,6 +18,13 @@ public class Angebote extends AppCompatActivity{
     private List<Artikel> artikel_list;
 
 
+    /*
+     * Methode öffnet die Seite und ruft die Methode "getAlleArtikel" auf und speichert die
+     * Artikel in "artikel_list". Wenn die Artikelliste leer ist, wird mit der Methode "artikelErstellen"
+     * die Artikel erstellt und dann wird die Artikelliste mit "getAlleArtikel" beladen.
+     *
+     * @param savedInstanceState
+     */
 
 
     protected void onCreate(Bundle savedInstanceState) {
@@ -41,21 +47,6 @@ public class Angebote extends AppCompatActivity{
             artikel_list = helper.getAlleArtikel();
         }
 
-        Cursor res = helper.getAllData();
-        if(res.getCount()==0){
-            showMessage("Error", "Nothing found");
-            return;
-        }
-        res.moveToFirst();
-        a1.setText("" + res.getString(0) );
-        p1.setText("" + res.getInt(1) );
-        res.moveToNext();
-        a2.setText("" + res.getString(0) );
-        p2.setText("" + res.getInt(1) );
-        res.moveToLast();
-        a3.setText("" + res.getString(0) );
-        p3.setText("" + res.getInt(1) );
-
     }
 
     public void meinProfil(final View view) {
@@ -63,10 +54,36 @@ public class Angebote extends AppCompatActivity{
         startActivity(i);
     }
 
+    /*
+     * Methode erstellt ein Bundle extras, um den Intent zu kriegen und deren Extras zu bekommen.
+     * Ein neuer String wird erstellt, der über einen Schlüssel auf die Extras zugreifen kann.
+     * Der String wird für Wiederverwendung zurückgegeben.
+     *
+     * @return newString
+     */
 
-    public void kaufNetflix(final View view){
+    public String welcherName() {
         Bundle extras = getIntent().getExtras();
         String newString = extras.getString("user_name");
+        return newString;
+    }
+
+    /*
+     * Methode ruft den Namen des eingeloggten Benutzers auf und ruft damit die Methode "sucheKaufe"
+     * auf. Diese werden in einem Cursor res gespeichert und es wird ein StringBuffer erstellt.
+     * Dieser Buffer wird mit dem String aus der Käufe Spalte befüllt und dann wird verglichen, ob der
+     * Artikel schon vorhanden ist. Wenn dem so ist, wird die Methode "artikelvorhanden" aufgerufen.
+     * Ansonsten wird die Methode "sucheGuthaben" aufgerufen, welche prüft, ob das Guthaben des Benutzers
+     * ausreichend ist. Wenn das Guthaben >= Preis vom Artikel ist, wird die Methode "handle_rest" auf-
+     * gerufen. Ansonsten wird "planb" aufgerufen.
+     *
+     * @pararm view
+     */
+
+
+    public void kaufNetflix(final View view){
+
+        String newString = welcherName();
         newString = "'"+newString+"'";
         Cursor res = helper.sucheKaufe(newString);
         StringBuffer buffer = new StringBuffer();
@@ -96,8 +113,8 @@ public class Angebote extends AppCompatActivity{
 
     public void kaufSpotify(final View view){
 
-        Bundle extras = getIntent().getExtras();
-        String newString = extras.getString("user_name");
+
+        String newString = welcherName();
         newString = "'"+newString+"'";
         Cursor res = helper.sucheKaufe(newString);
         StringBuffer buffer = new StringBuffer();
@@ -127,8 +144,7 @@ public class Angebote extends AppCompatActivity{
 
     public void kaufMcFit(final View view){
 
-        Bundle extras = getIntent().getExtras();
-        String newString = extras.getString("user_name");
+        String newString = welcherName();
         newString = "'"+newString+"'";
         Cursor res = helper.sucheKaufe(newString);
         StringBuffer buffer = new StringBuffer();
@@ -156,6 +172,14 @@ public class Angebote extends AppCompatActivity{
 
     }
 
+
+    /*
+     * Diese Methode wird aufgerufen, wenn der User den Artikel bereits gekauft hat. Der Benutzer
+     * hat nun die Möglichkeit zurück zu den Angeboten zu gehen und der Benutzer bekommt die Meldung,
+     * dass er den Artikel schon erstanden hat. Dies wird mithilfe eines AlertDialogs verwirklicht.
+     *
+     */
+
     public void artikelvorhanden(){
         String[] answers = {"Zurück zu den Angeboten"};
         AlertDialog.Builder builder = new AlertDialog.Builder(this);
@@ -169,6 +193,13 @@ public class Angebote extends AppCompatActivity{
         builder.show();
     }
 
+    /*
+     * Diese Methode wird aufgerufen, wenn der User nicht genug Geld hat den Artikel zu kaufen.
+     * Der Benutzer hat nun die Möglichkeit zurück zu den Angeboten zu gehen und der Benutzer bekommt
+     * die Meldung,dass er nicht genug Geld hat. Dies wird mithilfe eines AlertDialogs
+     * verwirklicht.
+     *
+     */
 
     public void planb(){
         String[] answers = {"Zurück zu den Angeboten"};
@@ -188,8 +219,15 @@ public class Angebote extends AppCompatActivity{
         startActivity(i);
     }
 
+    /*
+     * Diese Methode wird aufgerufen, wenn der Benutzer den Artikel noch nicht gekauft hat und
+     * noch
+     *
+     *
+     * @param guthaben
+     * @param preis
+     */
     public void handle_rest(final int guthaben, final int preis) {
-        Log.i("handle rest", "vor antworten");
         String[] answers = {"yes", "no"};
         AlertDialog.Builder builder = new AlertDialog.Builder(this);
         builder.setTitle("Bist du dir sicher");
@@ -231,9 +269,19 @@ public class Angebote extends AppCompatActivity{
         helper.updateKaeufe(name1, kauf);
     }
 
+    /*
+     * Methode holt sich die Namen mithilfe von den Intent Extras und ruft dann die Methode
+     * "sucheGuthaben" auf. Das Ergebnis wird in einem Cursor gespeichert und danach wird
+     * das erste (und einzige) Ergebnis als int herausgefiltert und dann wird eine TextView
+     * ausgegeben mit dem Namen und dem Guthaben.
+     * Ansonsten wird ein Fehler ausgegeben, dass kein Guthaben vorhanden ist.
+     *
+     * @return newString
+     */
+
     public String greetMe(){
-        Bundle extras = getIntent().getExtras();
-        String newString = extras.getString("user_name");
+
+        String newString = welcherName();
         TextView tv_name = (TextView) findViewById(R.id.textView);
         try {
             newString = "'"+newString+"'";
@@ -241,43 +289,12 @@ public class Angebote extends AppCompatActivity{
 
             guthabenc.moveToFirst();
             int guthaben = guthabenc.getInt(0);
-            tv_name.setText("Die Angebote gibt es für dich, " + newString + " und das ist dein Guthaben: " + guthaben + " Euro");
+            tv_name.setText("Die Angebote gibt es für dich, " + newString +
+                    " und das ist dein Guthaben: " + guthaben + " Euro");
         }catch(Exception e){
             Log.d("Fehler", "Kein Guthaben in DB");
         }
         return newString;
     }
-
-
-    public void viewAlll(final View view){
-        Button btnviewall = (Button) findViewById(R.id.button2);
-        btnviewall.setOnClickListener(
-                new View.OnClickListener(){
-                    public void onClick(View v){
-                        Cursor res = helper.getAllData();
-                        Log.i("view all", "Kriegt den Cursor");
-                        if(res.getCount()==0){
-                            showMessage("Error", "Nothing found");
-                            return;
-                        }
-                        StringBuffer buffer = new StringBuffer();
-                        while(res.moveToNext()){
-                            buffer.append("Name: " + res.getString(0) );
-                            buffer.append("Preis: " + res.getInt(1) );
-                        }
-                        //Show all data
-                        showMessage("Data", buffer.toString());
-                    }
-                }
-        );
-    }
-    public void showMessage(String title, String message){
-        AlertDialog.Builder builder = new AlertDialog.Builder(this);
-        builder.setCancelable(true);
-        builder.setTitle(title);
-        builder.setMessage(message);
-        builder.show();
-    }
-
 
 }

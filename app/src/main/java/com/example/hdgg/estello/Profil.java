@@ -23,6 +23,14 @@ public class Profil extends AppCompatActivity {
         welcherName();
     }
 
+    /*
+     * Methode erstellt ein Bundle extras, um den Intent zu kriegen und deren Extras zu bekommen.
+     * Ein neuer String wird erstellt, der über einen Schlüssel auf die Extras zugreifen kann.
+     * Danach wird mit einer Textview der Nutzer mit dem Namen begrüßt.
+     * Der String wird für Wiederverwendung zurückgegeben.
+     *
+     * @return newString
+     */
 
     public String welcherName() {
         Bundle extras = getIntent().getExtras();
@@ -32,13 +40,21 @@ public class Profil extends AppCompatActivity {
         return newString;
     }
 
+
+    /*
+     * Methode sucht die bisherigen Käufe einer Person mithilfe des Namens, der mit der Methode
+     * "welcherName" gefunden wird. Danach wird die Methode "sucheKauf" aufgerufen, und gibt die
+     * Käufe als Cursor Objekt zurück. Danach wird ein neuer String Buffer erstellt und der Eintrag aus
+     * der vierten Spalte wird eingetragen. Danach wird der Buffer zu einem String umgewandelt und
+     * und als TextView ausgegeben.
+     * @param view
+     */
+
     public void zeigKaufean(final View view) {
         btnviewartikel.setOnClickListener(
                 new View.OnClickListener() {
                     public void onClick(View v) {
-                        //ruf funk in helper auf
-                        Bundle extras = getIntent().getExtras();
-                        String name = extras.getString("user_name");
+                        String name = welcherName();
                         name = "'" + name + "'";
 
                         Cursor res = helper.sucheKaufe(name);
@@ -55,6 +71,11 @@ public class Profil extends AppCompatActivity {
         );
     }
 
+    /*
+     * Methode, die mithilfe von Intent zu der "Angebote" Seite geht und den Namen übergibt mit Extras
+     * @param view
+     */
+
     public void gehZuAngebote(final View view) {
 
         String newString = welcherName();
@@ -62,6 +83,11 @@ public class Profil extends AppCompatActivity {
         i.putExtra("user_name", newString);
         startActivity(i);
     }
+
+    /*
+     * Methode, die mithilfe von Intent zu der "GuthabenAufladen" Seite geht und den Namen übergibt mit Extras
+     * @param view
+     */
 
     public void aufladen(final View view) {
         String newString = welcherName();

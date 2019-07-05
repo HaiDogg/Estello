@@ -1,10 +1,8 @@
 package com.example.hdgg.estello;
 
-import android.app.Activity;
 import android.content.Intent;
-import android.database.Cursor;
-import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 import android.widget.EditText;
 import android.widget.Toast;
@@ -12,6 +10,11 @@ import android.widget.Toast;
 import java.security.NoSuchAlgorithmException;
 import java.security.spec.InvalidKeySpecException;
 
+/*
+@author Estelle Weinstock, Hai Do Le
+@version 1.0
+@since 2019-07-02
+ */
 
 public class MainActivity extends AppCompatActivity {
 
@@ -21,14 +24,27 @@ public class MainActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-
     }
 
 
 
-    /*Funktion, die prüft, ob der Benutzer schon existiert und wenn dem so ist, das Passwort prüft.
-    Wenn das Passwort stimmt, wird der Benutzer zu der "Angebote" Activity gefürt, ansonsten wird
-    der Toast ausgegeben, dass die Login Daten nicht stimmen */
+    /*
+
+    Funktion speichert den eingegeben Text aus der Anmeldung, ruft die "erstellePasswort"
+    Methode mit dem Parameter "pass", welches das soeben gespeicherte Passwort ist.
+    Danach wird die Methode "suchePasswort" aufgerufen, welches entweder den String "Nicht auffindbar"
+    zurück-gibt, wenn der Benutzer noch nicht existiert oder das Passwort, welches für den Benutzer
+    gespeichert ist.
+    Wenn das Passwort mit dem soeben eingegeben Passwort übereinstimmt, wird der Nutzer mit einem
+    Intent in die Profil Klasse weitergeleitet und der Name vom Benutzer wird übergeben.
+    Ansonsten wird ein Toast ausgegeben, dass die Anmeldedaten nicht korrekt sind.
+    @param view
+    @throws InvalidKeySpecException
+    @throws NoSuchAlgorithmException
+
+    */
+
+
     public void darfstDurch(final View view) throws InvalidKeySpecException, NoSuchAlgorithmException {
 
         EditText name = (EditText) findViewById(R.id.name_text);
@@ -52,7 +68,13 @@ public class MainActivity extends AppCompatActivity {
 
     }
 
-    //Funktion, welche zu Activity "Erstelle Account" führt
+    /*
+
+    Funktion leitet auf Knopfdruck auf die "ErstelleAccount" Seite
+    @param view
+
+     */
+
     public void machDirEinenAccount(final View view){
         Intent i = new Intent(MainActivity.this, ErstelleAccount.class);
         startActivity(i);
