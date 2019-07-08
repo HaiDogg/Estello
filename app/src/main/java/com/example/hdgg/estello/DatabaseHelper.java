@@ -173,7 +173,7 @@ public class DatabaseHelper extends SQLiteOpenHelper{
             } while (res.moveToNext());
         }
 
-        if (bishar != ""){
+        if (bishar != null){
             kauf = kauf.substring(1,kauf.length()-1);
              newarticles = "'" + bishar + " , " + kauf +"'" ;
         }else{

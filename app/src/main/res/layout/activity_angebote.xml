@@ -86,7 +86,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_gravity="center_vertical"
-                    android:text=" Jahresabo für "
+                    android:text="Netflix Jahresabo für "
                     android:textAlignment="center"
                     android:textColor="@android:color/black"
                     android:textSize="12sp"
